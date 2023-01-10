@@ -908,35 +908,103 @@ class Main(QtWidgets.QMainWindow):
     def crearInformeCli(self):
 
             try:
+                self.titulo = 'LISTA DE CLIENTES'
                 self.report = canvas.Canvas('informes/listadoClientes.pdf')
-                self.report.drawString(100,750, 'LISTA DE CLIENTES')
+                self.report.drawString(230,700, 'LISTA DE CLIENTES')
+                items = ['DNI', 'Nombre', 'Dirección', 'Provincia', 'Municipio']
+                self.report.line(50, 660, 525, 660)
+                self.report.setFont('Helvetica-Bold', size=10)
+                self.report.drawString(60, 650, items[0])
+                self.report.drawString(120, 650, items[1])
+                self.report.drawString(270, 650, items[2])
+                self.report.drawString(360, 650, items[3])
+                self.report.drawString(460, 650, items[4])
+                self.report.line(50, 645, 525, 645)
+
+
+                ######################################
+                query = QtSql.QSqlQuery()
+                query.prepare('select dni, nombre, direccion, provincia, municipio'
+                              'from clientes order by nombre;')
+
+                self.report.setFont('Helvetica', size=8)
+
+                if query.exec():
+                    i = 55
+                    j = 650
+                    while query.next():
+                        if j <= 80:
+                            self.report.drawString(460,90,'Página siguiente...')
+                            self.report.showPage()
+                            self.topInforme()
+                            self.pieInforme()
+                            self.report.line(50, 660, 525, 660)
+                            self.report.setFont('Helvetica-Bold', size=10)
+                            self.report.drawString(60, 650, items[0])
+                            self.report.drawString(120, 650, items[1])
+                            self.report.drawString(270, 650, items[2])
+                            self.report.drawString(360, 650, items[3])
+                            self.report.drawString(460, 650, items[4])
+                            self.report.line(50, 645, 525, 645)
+
+                        self.report.setFont('Helvetica', size=8)
+                        self.report.drawString(i, j, str(query.value(0)))
+                        self.report.drawString(i+60, j, str(query.value(0)))
+                        j = j-20
+
+                ##########################################################
                 self.pieInforme()
+                self.topInforme()
                 self.report.save()
                 rootPath = '.\\informes'
                 os.startfile('%s\%s' % (rootPath, 'listadoClientes.pdf'))
             except Exception as error:
-                print('Error informes estado clientes: '+ error)
+                print('Error informes estado clientes: '+ str(error))
             
     def crearInformeAuto(self):
             try:
+                self.titulo = 'LISTA DE CLIENTES'
                 self.report = canvas.Canvas('informes/listadoAutos.pdf')
-                self.report.drawString(100,750, 'LISTA DE VEHÍCULOS')
+                #self.report.drawString(100,750, 'LISTA DE VEHÍCULOS')
                 self.pieInforme()
+                self.topInforme()
                 self.report.save()
                 rootPath = '.\\informes'
                 os.startfile('%s\%s' % (rootPath, 'listadoAutos.pdf'))
             except Exception as error:
-                print('Error informes estado clientes: '+ error)
+                print('Error informes estado clientes: '+ str(error))
 
-
-            
     def pieInforme(self):
         try:
             self.report.line(50,50,525,50)
             fecha = datetime.datetime.today()
             fecha = fecha.strftime('%d.%m.%Y %H:%M:%S')
             self.report.setFont('Helvetica-Oblique', size=7)
-            self.report.drawString(250,40, str(fecha))
-            self.report.drawString(475, 40, self.report.getPageNumber())
+            self.report.drawString(50,40, str(fecha))
+            self.report.drawString(250, 40, str(self.titulo))
+            self.report.drawString(475, 40, 'Página {}'.format(self.report.getPageNumber()))
         except Exception as error:
-            print('Error pie de informe de cualquier tipo: '+error)
+            print('Error pie de informe de cualquier tipo: '+str(error))
+
+    def topInforme(self):
+        try:
+
+            logo = '.\img\logo.jpg'
+            self.report.line(50, 800, 525, 800)
+            self.report.line(50, 720, 525, 720)
+            self.report.setFont('Helvetica-Bold', size=14)
+            self.report.drawImage(logo, 15, 680, width=120, height=150)
+            self.report.drawString(230,815,'Taller Mecánico Teis')
+            self.report.drawImage(logo,460,680, width=120, height=150)
+
+            self.report.setFont('Helvetica', size=9)
+            self.report.drawString(150, 785, 'CIF: A12345678')
+            self.report.drawString(350, 785, 'Avda. Galicia - 101')
+            self.report.drawString(350, 775, 'Vigo - 36216 - España')
+            self.report.drawString(150, 775, 'Correo: mitaller@mail.com')
+            self.report.drawString(150, 765, 'Teléfono: 987654321')
+
+
+
+        except Exception as error:
+            print('Error de cabecera: '+str(error))
