@@ -108,7 +108,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         self.ui.actionInforme_Clientes.triggered.connect(self.crearInformeCli)           # === crea informe de clientes === #
         
-        self.ui.actionInforme_Coches.triggered.connect(self.crearInformeAuto)             # === crea informe de coches === #
+        self.ui.actionInforme_Coches.triggered.connect(self.crearInformeAuto)            # === crea informe de coches === #
     '''
     ========================================================================================================================
     
@@ -920,39 +920,7 @@ class Main(QtWidgets.QMainWindow):
                 self.report.drawString(360, 650, items[3])
                 self.report.drawString(460, 650, items[4])
                 self.report.line(50, 645, 525, 645)
-
-
-                ######################################
-                query = QtSql.QSqlQuery()
-                query.prepare('select dni, nombre, direccion, provincia, municipio'
-                              'from clientes order by nombre;')
-
-                self.report.setFont('Helvetica', size=8)
-
-                if query.exec():
-                    i = 55
-                    j = 650
-                    while query.next():
-                        if j <= 80:
-                            self.report.drawString(460,90,'Página siguiente...')
-                            self.report.showPage()
-                            self.topInforme()
-                            self.pieInforme()
-                            self.report.line(50, 660, 525, 660)
-                            self.report.setFont('Helvetica-Bold', size=10)
-                            self.report.drawString(60, 650, items[0])
-                            self.report.drawString(120, 650, items[1])
-                            self.report.drawString(270, 650, items[2])
-                            self.report.drawString(360, 650, items[3])
-                            self.report.drawString(460, 650, items[4])
-                            self.report.line(50, 645, 525, 645)
-
-                        self.report.setFont('Helvetica', size=8)
-                        self.report.drawString(i, j, str(query.value(0)))
-                        self.report.drawString(i+60, j, str(query.value(0)))
-                        j = j-20
-
-                ##########################################################
+                self.cuerpoInforme()
                 self.pieInforme()
                 self.topInforme()
                 self.report.save()
@@ -1008,3 +976,34 @@ class Main(QtWidgets.QMainWindow):
 
         except Exception as error:
             print('Error de cabecera: '+str(error))
+
+
+    def cuerpoInforme(self):
+        query = QtSql.QSqlQuery()
+        query.prepare('select dni, nombre, direccion, provincia, municipio'
+                      'from clientes order by nombre;')
+
+        self.report.setFont('Helvetica', size=8)
+
+        if query.exec():
+            i = 55
+            j = 650
+            while query.next():
+                if j <= 80:
+                    self.report.drawString(460, 90, 'Página siguiente...')
+                    self.report.showPage()
+                    self.topInforme()
+                    self.pieInforme()
+                    self.report.line(50, 660, 525, 660)
+                    self.report.setFont('Helvetica-Bold', size=10)
+                    self.report.drawString(60, 650, items[0])
+                    self.report.drawString(120, 650, items[1])
+                    self.report.drawString(270, 650, items[2])
+                    self.report.drawString(360, 650, items[3])
+                    self.report.drawString(460, 650, items[4])
+                    self.report.line(50, 645, 525, 645)
+
+                self.report.setFont('Helvetica', size=8)
+                self.report.drawString(i, j, str(query.value(0)))
+                self.report.drawString(i + 60, j, str(query.value(0)))
+                j = j - 20
