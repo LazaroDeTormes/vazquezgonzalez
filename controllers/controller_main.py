@@ -1,3 +1,5 @@
+import calendar
+
 import xlrd as xlrd
 import xlwt
 from PyQt6 import QtWidgets, QtSql
@@ -485,11 +487,11 @@ class Main(QtWidgets.QMainWindow):
 
             query = QtSql.QSqlQuery()
             query.prepare(
-                'insert into clientes (dni, nombre, alta, direccion, provincia, municipio, pago) values (:dni, :nombre, :alta, :dirección, :provincia, :municipio, :pago)')
+                'insert into clientes (dni, nombre, alta, direccion, provincia, municipio, pago) values (:dni, :nombre, :alta, :direccion, :provincia, :municipio, :pago)')
             query.bindValue(":dni", str(newcli[0]))
             query.bindValue(":nombre", str(newcli[1]))
             query.bindValue(":alta", str(newcli[2]))
-            query.bindValue(":dirección", str(newcli[3]))
+            query.bindValue(":direccion", str(newcli[3]))
             query.bindValue(":provincia", str(newcli[4]))
             query.bindValue(":municipio", str(newcli[5]))
             query.bindValue(":pago", str(newcli[6]))
@@ -920,7 +922,7 @@ class Main(QtWidgets.QMainWindow):
                 self.report.drawString(360, 650, items[3])
                 self.report.drawString(460, 650, items[4])
                 self.report.line(50, 645, 525, 645)
-                self.cuerpoInforme()
+                self.cuerpoInformeCliente()
                 self.pieInforme()
                 self.topInforme()
                 self.report.save()
@@ -930,17 +932,27 @@ class Main(QtWidgets.QMainWindow):
                 print('Error informes estado clientes: '+ str(error))
             
     def crearInformeAuto(self):
-            try:
-                self.titulo = 'LISTA DE CLIENTES'
-                self.report = canvas.Canvas('informes/listadoAutos.pdf')
-                #self.report.drawString(100,750, 'LISTA DE VEHÍCULOS')
-                self.pieInforme()
-                self.topInforme()
-                self.report.save()
-                rootPath = '.\\informes'
-                os.startfile('%s\%s' % (rootPath, 'listadoAutos.pdf'))
-            except Exception as error:
-                print('Error informes estado clientes: '+ str(error))
+        try:
+            self.titulo = 'LISTA DE VEHÍCULOS'
+            self.report = canvas.Canvas('informes/listadoAutos.pdf')
+            self.report.drawString(230, 700, 'LISTA DE VEHÍCULOS')
+            items = ['DNI', 'Matrícula', 'Marca', 'Modelo', 'Motor']
+            self.report.line(50, 660, 525, 660)
+            self.report.setFont('Helvetica-Bold', size=10)
+            self.report.drawString(60, 650, items[0])
+            self.report.drawString(120, 650, items[1])
+            self.report.drawString(270, 650, items[2])
+            self.report.drawString(360, 650, items[3])
+            self.report.drawString(460, 650, items[4])
+            self.report.line(50, 645, 525, 645)
+            self.cuerpoInformeCoche()
+            self.pieInforme()
+            self.topInforme()
+            self.report.save()
+            rootPath = '.\\informes'
+            os.startfile('%s\%s' % (rootPath, 'listadoAutos.pdf'))
+        except Exception as error:
+            print('Error informes estado clientes: ' + str(error))
 
     def pieInforme(self):
         try:
@@ -962,8 +974,8 @@ class Main(QtWidgets.QMainWindow):
             self.report.line(50, 720, 525, 720)
             self.report.setFont('Helvetica-Bold', size=14)
             self.report.drawImage(logo, 15, 680, width=120, height=150)
-            self.report.drawString(230,815,'Taller Mecánico Teis')
-            self.report.drawImage(logo,460,680, width=120, height=150)
+            self.report.drawString(230, 815, 'Taller Mecánico Teis')
+            self.report.drawImage(logo, 460, 680, width=120, height=150)
 
             self.report.setFont('Helvetica', size=9)
             self.report.drawString(150, 785, 'CIF: A12345678')
@@ -978,16 +990,20 @@ class Main(QtWidgets.QMainWindow):
             print('Error de cabecera: '+str(error))
 
 
-    def cuerpoInforme(self):
+    def cuerpoInformeCliente(self):
+        items = ['DNI', 'Nombre', 'Dirección', 'Provincia', 'Municipio']
+
         query = QtSql.QSqlQuery()
-        query.prepare('select dni, nombre, direccion, provincia, municipio'
-                      'from clientes order by nombre;')
+        query.prepare('select dni, nombre, direccion, provincia, municipio '
+                      'from clientes order by nombre')
+
+
 
         self.report.setFont('Helvetica', size=8)
 
         if query.exec():
-            i = 55
-            j = 650
+            i = 60
+            j = 630
             while query.next():
                 if j <= 80:
                     self.report.drawString(460, 90, 'Página siguiente...')
@@ -1004,6 +1020,70 @@ class Main(QtWidgets.QMainWindow):
                     self.report.line(50, 645, 525, 645)
 
                 self.report.setFont('Helvetica', size=8)
-                self.report.drawString(i, j, str(query.value(0)))
-                self.report.drawString(i + 60, j, str(query.value(0)))
+                censura = ""
+                dni = query.value(0)
+                for x in range(9):
+                    if x < 5:
+                        censura = censura + '*'
+                    elif ((x >= 5) and (x < 8)):
+                        censura = censura + dni[x]
+                    elif x == 8:
+                        censura = censura + '*'
+
+                self.report.drawString(i, j, str(censura))
+                self.report.drawString(i + 60, j, str(query.value(1)))
+                self.report.drawString(i + 210, j, str(query.value(2)))
+                self.report.drawString(i + 300, j, str(query.value(3)))
+                self.report.drawString(i + 400, j, str(query.value(4)))
+                j = j - 20
+
+    def cuerpoInformeCoche(self):
+        items = ['DNI', 'Matrícula', 'Marca', 'Modelo', 'Motor']
+
+        query = QtSql.QSqlQuery()
+        query.prepare('select dniCli, matricula, marca, modelo, motor '
+                      'from coches order by marca')
+
+        self.report.setFont('Helvetica', size=8)
+
+        if query.exec():
+            i = 60
+            j = 630
+            while query.next():
+                if j <= 80:
+                    self.report.drawString(460, 90, 'Página siguiente...')
+                    self.report.showPage()
+                    self.topInforme()
+                    self.pieInforme()
+                    self.report.line(50, 660, 525, 660)
+                    self.report.setFont('Helvetica-Bold', size=10)
+                    self.report.drawString(60, 650, items[0])
+                    self.report.drawString(120, 650, items[1])
+                    self.report.drawString(270, 650, items[2])
+                    self.report.drawString(360, 650, items[3])
+                    self.report.drawString(460, 650, items[4])
+                    self.report.line(50, 645, 525, 645)
+
+                self.report.setFont('Helvetica', size=8)
+
+                censura = ""
+                dni = query.value(0)
+                for x in range(9):
+                    if x < 5:
+                        censura = censura + '*'
+
+                    if ((x >= 5) and (x < 8)):
+                        censura = censura + dni[x]
+
+
+                    if x == 8:
+                        censura = censura + '*'
+
+
+
+                self.report.drawString(i, j, str(censura))
+                self.report.drawString(i + 60, j, str(query.value(1)))
+                self.report.drawString(i + 210, j, str(query.value(2)))
+                self.report.drawString(i + 300, j, str(query.value(3)))
+                self.report.drawString(i + 400, j, str(query.value(4)))
                 j = j - 20
