@@ -911,7 +911,10 @@ class Main(QtWidgets.QMainWindow):
 
             try:
                 self.titulo = 'LISTA DE CLIENTES'
-                self.report = canvas.Canvas('informes/listadoClientes.pdf')
+
+                dir, file = QtWidgets.QFileDialog().getSaveFileName(None, 'Guardar Datos', "Listado", '.pdf')
+                self.report = canvas.Canvas(dir+file)
+
                 self.report.drawString(230,700, 'LISTA DE CLIENTES')
                 items = ['DNI', 'Nombre', 'Dirección', 'Provincia', 'Municipio']
                 self.report.line(50, 660, 525, 660)
@@ -926,15 +929,20 @@ class Main(QtWidgets.QMainWindow):
                 self.pieInforme()
                 self.topInforme()
                 self.report.save()
-                rootPath = '.\\informes'
-                os.startfile('%s\%s' % (rootPath, 'listadoClientes.pdf'))
+
+
+
+
+                #rootPath = '.\\informes'
+                #os.startfile('%s\%s' % (rootPath, 'listadoClientes.pdf'))
             except Exception as error:
                 print('Error informes estado clientes: '+ str(error))
             
     def crearInformeAuto(self):
         try:
             self.titulo = 'LISTA DE VEHÍCULOS'
-            self.report = canvas.Canvas('informes/listadoAutos.pdf')
+            dir, file = QtWidgets.QFileDialog().getSaveFileName(None, 'Guardar Datos', "Listado", '.pdf')
+            self.report = canvas.Canvas(dir + file)
             self.report.drawString(230, 700, 'LISTA DE VEHÍCULOS')
             items = ['DNI', 'Matrícula', 'Marca', 'Modelo', 'Motor']
             self.report.line(50, 660, 525, 660)
@@ -949,8 +957,7 @@ class Main(QtWidgets.QMainWindow):
             self.pieInforme()
             self.topInforme()
             self.report.save()
-            rootPath = '.\\informes'
-            os.startfile('%s\%s' % (rootPath, 'listadoAutos.pdf'))
+            
         except Exception as error:
             print('Error informes estado clientes: ' + str(error))
 
@@ -988,7 +995,6 @@ class Main(QtWidgets.QMainWindow):
 
         except Exception as error:
             print('Error de cabecera: '+str(error))
-
 
     def cuerpoInformeCliente(self):
         items = ['DNI', 'Nombre', 'Dirección', 'Provincia', 'Municipio']
@@ -1087,3 +1093,5 @@ class Main(QtWidgets.QMainWindow):
                 self.report.drawString(i + 300, j, str(query.value(3)))
                 self.report.drawString(i + 400, j, str(query.value(4)))
                 j = j - 20
+
+
