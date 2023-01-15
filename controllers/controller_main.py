@@ -9,7 +9,7 @@ from reportlab.pdfgen import canvas
 from views import Ui_venMain
 from controllers import DialogoSalir, DialogoDatos, DialogCalendar
 import sys
-import datetime
+from datetime import datetime
 import zipfile
 import shutil
 import os
@@ -24,17 +24,18 @@ class Main(QtWidgets.QMainWindow):
         self.avisosalir = DialogoSalir()
         self.dlgcalendar = DialogCalendar()
         self.avisoDatos = DialogoDatos()
+        self.dlgHistorico = DialogoHistorico()
 
         '''
         Eventos de la barra de iconos
         '''
-        self.ui.SalirBarra.triggered.connect(self.salir)                    # === sale del programa === #
+        self.ui.SalirBarra.triggered.connect(self.salir)                        # === sale del programa === #
 
-        self.ui.actionCrearBU2.triggered.connect(self.creaBackup)           # === guarda los datos === #
+        self.ui.actionCrearBU2.triggered.connect(self.creaBackup)               # === guarda los datos === #
 
-        self.ui.actionRestaurarBU2.triggered.connect(self.restauraBackup)   # === restaura los datos === #
+        self.ui.actionRestaurarBU2.triggered.connect(self.restauraBackup)       # === restaura los datos === #
 
-        self.ui.actionExportar.triggered.connect(self.exportarDatos)        # === exporta los datos === #
+        self.ui.actionExportar.triggered.connect(self.exportarDatos)            # === exporta los datos === #
 
         '''
         Eventos de la barra de herramientas
@@ -50,17 +51,19 @@ class Main(QtWidgets.QMainWindow):
         '''
         Eventos de botones variados
         '''
-        self.ui.btnFechaCli.clicked.connect(self.abrirCalendario)       # === abre el calendario === #
+        self.ui.btnFechaCli.clicked.connect(self.abrirCalendario)               # === abre el calendario === #
 
-        self.ui.btnLimpiar.clicked.connect(self.limpiaCli)              # === limpia el formulario === #
+        self.ui.btnLimpiar.clicked.connect(self.limpiaCli)                      # === limpia el formulario === #
 
-        self.ui.btnGuardarCli.clicked.connect(self.guardarCli)          # === guarda un cliente === #
+        self.ui.btnGuardarCli.clicked.connect(self.guardarCli)                  # === guarda un cliente === #
 
-        self.ui.btnBorraCli.clicked.connect(self.eliminarCliente)       # === borra un cliente === #
+        self.ui.btnBorraCli.clicked.connect(self.eliminarCliente)               # === borra un cliente === #
 
-        self.ui.tabCli.clicked.connect(self.cargaCliente)               # === carga un cliente === #
+        self.ui.tabCli.clicked.connect(self.cargaCliente)                       # === carga un cliente === #
 
-        self.ui.btnModifCli.clicked.connect(self.modifCliente)          # === modifica un cliente === #
+        self.ui.btnModifCli.clicked.connect(self.modifCliente)                  # === modifica un cliente === #
+
+        self.ui.btnHist.clicked.connect(self.abrirHistorico)                    # === abre el histórico === #
 
         '''
         Listado de eventos de cajas del formulario
@@ -108,9 +111,9 @@ class Main(QtWidgets.QMainWindow):
         '''
         Llamadas a funciones de informes
         '''
-        self.ui.actionInforme_Clientes.triggered.connect(self.crearInformeCli)           # === crea informe de clientes === #
+        self.ui.actionInforme_Clientes.triggered.connect(self.crearInformeCli)      # === crea informe de clientes === #
         
-        self.ui.actionInforme_Coches.triggered.connect(self.crearInformeAuto)            # === crea informe de coches === #
+        self.ui.actionInforme_Coches.triggered.connect(self.crearInformeAuto)       # === crea informe de coches === #
     '''
     ========================================================================================================================
     
@@ -411,20 +414,22 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print(error)
 
-    def cargarFecha(self):
+    def cargarFecha(self, qDate):
 
         try:
 
             calendario = self.dlgcalendar
-            if calendario.ui.calendario.clicked():
+            if calendario.ui.calendario.clicked:
 
-                data = ("{0}/{1}/{2}".format(QtCore.QDate.day(), QtCore.QDate.month(), QtCore.QDate.year()))
+                data = ("{0}/{1}/{2}".format(qDate.day(), qDate.month(), qDate.year()))
 
                 self.ui.txtFechaCli.setText(str(data))
                 calendario.hide()
+            else:
+                pass
 
         except Exception as error:
-            print(error)
+            print("Error de calendario: " + str(error))
 
     def conexion(self):
 

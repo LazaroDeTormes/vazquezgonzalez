@@ -11,7 +11,6 @@ class DialogoDatos(QtWidgets.QDialog):
         super(DialogoDatos, self).__init__()
         self.ui = Ui_dlgDatos()
         self.ui.setupUi(self)
-
         self.ui.btnAceptar.clicked.connect(self.exportacion)
 
     def exportacion(self):
