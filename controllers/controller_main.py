@@ -727,6 +727,13 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print('Error modificando', error)
 
+    def abrirHistorico(self):
+        try:
+            self.dlgHistorico.show()
+
+        except Exception as error:
+            print(error)
+
     def mostrarTabProductos(self):
         try:
             tabla = self.ui.tabProd
