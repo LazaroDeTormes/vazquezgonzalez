@@ -7,7 +7,7 @@ from PyQt6.uic.properties import QtCore
 from reportlab.pdfgen import canvas
 
 from views import Ui_venMain
-from controllers import DialogoSalir, DialogoDatos, DialogCalendar
+from controllers import DialogoSalir, DialogoDatos, DialogCalendar, DialogoHistorico
 import sys
 from datetime import datetime
 import zipfile
@@ -136,7 +136,7 @@ class Main(QtWidgets.QMainWindow):
     def abrirCalendario(self):
         try:
             self.dlgcalendar.show()
-            self.cargarFecha()
+            self.dlgcalendar.ui.calendario.clicked.connect(self.cargarFecha)
         except Exception as error:
             print(error)
 

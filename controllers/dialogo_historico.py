@@ -1,6 +1,5 @@
-from PyQt6 import QtWidgets, QtCore
-from views import Ui_dlgCalendar
-from datetime import datetime
+from PyQt6 import QtWidgets
+from views import Ui_dlgHistorico
 
 
 class DialogoHistorico(QtWidgets.QDialog):
@@ -8,4 +7,3 @@ class DialogoHistorico(QtWidgets.QDialog):
         super(DialogoHistorico, self).__init__()
         self.ui = Ui_dlgHistorico()
         self.ui.setupUi(self)
-

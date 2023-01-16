@@ -992,7 +992,7 @@ background-color: rgb(58, 58, 58);</string>
         <widget class="QLabel" name="lblTituloVehi">
          <property name="minimumSize">
           <size>
-           <width>165</width>
+           <width>150</width>
            <height>20</height>
           </size>
          </property>
@@ -1031,7 +1031,7 @@ color: rgb(255, 206, 8);</string>
          </property>
          <property name="maximumSize">
           <size>
-           <width>327</width>
+           <width>330</width>
            <height>49</height>
           </size>
          </property>
@@ -1106,7 +1106,7 @@ color: rgb(255, 206, 8);</string>
        <rect>
         <x>10</x>
         <y>250</y>
-        <width>51</width>
+        <width>52</width>
         <height>602</height>
        </rect>
       </property>
