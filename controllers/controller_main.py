@@ -68,35 +68,37 @@ class Main(QtWidgets.QMainWindow):
         '''
         Listado de eventos de cajas del formulario
         '''
-        self.ui.txtDniCli.editingFinished.connect(self.mostrarValidezDNI)       # === comprueba el DNI ===#
+        self.ui.txtDniCli.editingFinished.connect(self.mostrarValidezDNI)       # === comprueba el DNI === #
 
-        self.ui.txtNombreCli.editingFinished.connect(self.letrasCapital)        # === pone las mayúsculas ===#
+        self.ui.txtNombreCli.editingFinished.connect(self.letrasCapital)        # === pone las mayúsculas === #
 
-        self.ui.txtDirCli.editingFinished.connect(self.letrasCapital)           # === pone las mayúsculas ===#
+        self.ui.txtDirCli.editingFinished.connect(self.letrasCapital)           # === pone las mayúsculas === #
 
-        self.ui.txtMatr.editingFinished.connect(self.letrasCapital)             # === pone las mayúsculas ===#
+        self.ui.txtMatr.editingFinished.connect(self.letrasCapital)             # === pone las mayúsculas === #
 
-        self.ui.txtModelo.editingFinished.connect(self.letrasCapital)           # === pone las mayúsculas ===#
+        self.ui.txtModelo.editingFinished.connect(self.letrasCapital)           # === pone las mayúsculas === #
 
         '''
         Llamadas a funciones varias
         '''
-        self.selMotor()                                                         # === asegura el motor ===#
+        self.selMotor()                                                         # === asegura el motor === #
 
-        self.conexion()                                                         # === conexión con la base ===#
+        self.conexion()                                                         # === conexión con la base === #
 
-        self.cargarProvincia()                                                  # === llena las provincias ===#
+        self.cargarProvincia()                                                  # === llena las provincias === #
 
-        self.mostrarTabCocheCli()                                               # === muestra la tabla de coches ===#
+        self.mostrarTabCocheCli()                                               # === muestra la tabla de coches === #
 
         self.mostrarTabProductos()                                              # === muestra la tabla productos === #
 
-        self.restructuracionTablaCocheCli()                                     # === reestructura la tabla coches ===#
+        self.restructuracionTablaCocheCli()                                     # === reestructura la tabla coches === #
 
         self.ui.cmbProCli.currentIndexChanged.connect(self.cargarMunicipio)     # === llena los municipios ===#
 
+        self.ui.mostrarTabFacturas()                                            # === muestra la tabla de facturas === #
+
         '''
-        Llamadas a funciones de productos (examen)
+        Llamadas a funciones de servicios (examen)
         '''
         self.ui.btnBorrarProd.clicked.connect(self.eliminarProducto)            # === borra un producto === #
 
@@ -1105,5 +1107,58 @@ class Main(QtWidgets.QMainWindow):
                 self.report.drawString(i + 300, j, str(query.value(3)))
                 self.report.drawString(i + 400, j, str(query.value(4)))
                 j = j - 20
+        items = ['DNI', 'Nombre', 'Dirección', 'Provincia', 'Municipio']
+
+        query = QtSql.QSqlQuery()
+        query.prepare('select dniCli, matricula, marca, modelo, motor '
+                      'from coches order by marca')
+
+
+
+        self.report.setFont('Helvetica', size=8)
+
+        if query.exec():
+            i = 60
+            j = 630
+            while query.next():
+                if j <= 80:
+                    self.report.drawString(460, 90, 'Página siguiente...')
+                    self.report.showPage()
+                    self.topInforme()
+                    self.pieInforme()
+                    self.report.line(50, 660, 525, 660)
+                    self.report.setFont('Helvetica-Bold', size=10)
+                    self.report.drawString(60, 650, items[0])
+                    self.report.drawString(120, 650, items[1])
+                    self.report.drawString(270, 650, items[2])
+                    self.report.drawString(360, 650, items[3])
+                    self.report.drawString(460, 650, items[4])
+                    self.report.line(50, 645, 525, 645)
+
+                self.report.setFont('Helvetica', size=8)
+                censura = ""
+                dni = query.value(0)
+                for x in range(9):
+                    if x < 5:
+                        censura = censura + '*'
+                    elif ((x >= 5) and (x < 8)):
+                        censura = censura + dni[x]
+                    elif x == 8:
+                        censura = censura + '*'
+
+                self.report.drawString(i, j, str(censura))
+                self.report.drawString(i + 60, j, str(query.value(1)))
+                self.report.drawString(i + 210, j, str(query.value(2)))
+                self.report.drawString(i + 300, j, str(query.value(3)))
+                self.report.drawString(i + 400, j, str(query.value(4)))
+                j = j - 20
+
+    def mostrarTabFacturas(self):
+        fila = self.ui.tabCli.selectedItems()
+        datos = [self.ui.textBoxDniCliFac, self.ui.txtMatrFac]
+        row = [dato.text() for dato in fila]
+
+        for i, dato in fila:
+            dato.setText(row[i])
 
 
