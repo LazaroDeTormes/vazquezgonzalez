@@ -29,93 +29,94 @@ class Main(QtWidgets.QMainWindow):
         '''
         Eventos de la barra de iconos
         '''
-        self.ui.SalirBarra.triggered.connect(self.salir)                        # === sale del programa === #
+        self.ui.SalirBarra.triggered.connect(self.salir)  # === sale del programa === #
 
-        self.ui.actionCrearBU2.triggered.connect(self.creaBackup)               # === guarda los datos === #
+        self.ui.actionCrearBU2.triggered.connect(self.creaBackup)  # === guarda los datos === #
 
-        self.ui.actionRestaurarBU2.triggered.connect(self.restauraBackup)       # === restaura los datos === #
+        self.ui.actionRestaurarBU2.triggered.connect(self.restauraBackup)  # === restaura los datos === #
 
-        self.ui.actionExportar.triggered.connect(self.exportarDatos)            # === exporta los datos === #
+        self.ui.actionExportar.triggered.connect(self.exportarDatos)  # === exporta los datos === #
 
         '''
         Eventos de la barra de herramientas
         '''
-        self.ui.actionSalir.triggered.connect(self.salir)                               # === sale del programa === #
+        self.ui.actionSalir.triggered.connect(self.salir)  # === sale del programa === #
 
-        self.ui.actionCrear_Copia_Seguridad.triggered.connect(self.creaBackup)          # === guarda los datos === #
+        self.ui.actionCrear_Copia_Seguridad.triggered.connect(self.creaBackup)  # === guarda los datos === #
 
         self.ui.actionRestaurar_Copia_Seguridad.triggered.connect(self.restauraBackup)  # === restaura los datos === #
 
-        self.ui.actionImportar.triggered.connect(self.importarDatos)                    # === importa los datos === #
+        self.ui.actionImportar.triggered.connect(self.importarDatos)  # === importa los datos === #
 
         '''
         Eventos de botones variados
         '''
-        self.ui.btnFechaCli.clicked.connect(self.abrirCalendario)               # === abre el calendario === #
+        self.ui.btnFechaCli.clicked.connect(self.abrirCalendario)  # === abre el calendario === #
 
-        self.ui.btnLimpiar.clicked.connect(self.limpiaCli)                      # === limpia el formulario === #
+        self.ui.btnLimpiar.clicked.connect(self.limpiaCli)  # === limpia el formulario === #
 
-        self.ui.btnGuardarCli.clicked.connect(self.guardarCli)                  # === guarda un cliente === #
+        self.ui.btnGuardarCli.clicked.connect(self.guardarCli)  # === guarda un cliente === #
 
-        self.ui.btnBorraCli.clicked.connect(self.eliminarCliente)               # === borra un cliente === #
+        self.ui.btnBorraCli.clicked.connect(self.eliminarCliente)  # === borra un cliente === #
 
-        self.ui.tabCli.clicked.connect(self.cargaCliente)                       # === carga un cliente === #
+        self.ui.tabCli.clicked.connect(self.cargaCliente)  # === carga un cliente === #
 
-        self.ui.btnModifCli.clicked.connect(self.modifCliente)                  # === modifica un cliente === #
+        self.ui.btnModifCli.clicked.connect(self.modifCliente)  # === modifica un cliente === #
 
-        self.ui.btnHist.clicked.connect(self.abrirHistorico)                    # === abre el histórico === #
+        self.ui.btnHist.clicked.connect(self.abrirHistorico)  # === abre el histórico === #
 
         '''
         Listado de eventos de cajas del formulario
         '''
-        self.ui.txtDniCli.editingFinished.connect(self.mostrarValidezDNI)       # === comprueba el DNI === #
+        self.ui.txtDniCli.editingFinished.connect(self.mostrarValidezDNI)  # === comprueba el DNI === #
 
-        self.ui.txtNombreCli.editingFinished.connect(self.letrasCapital)        # === pone las mayúsculas === #
+        self.ui.txtNombreCli.editingFinished.connect(self.letrasCapital)  # === pone las mayúsculas === #
 
-        self.ui.txtDirCli.editingFinished.connect(self.letrasCapital)           # === pone las mayúsculas === #
+        self.ui.txtDirCli.editingFinished.connect(self.letrasCapital)  # === pone las mayúsculas === #
 
-        self.ui.txtMatr.editingFinished.connect(self.letrasCapital)             # === pone las mayúsculas === #
+        self.ui.txtMatr.editingFinished.connect(self.letrasCapital)  # === pone las mayúsculas === #
 
-        self.ui.txtModelo.editingFinished.connect(self.letrasCapital)           # === pone las mayúsculas === #
+        self.ui.txtModelo.editingFinished.connect(self.letrasCapital)  # === pone las mayúsculas === #
 
         '''
         Llamadas a funciones varias
         '''
-        self.selMotor()                                                         # === asegura el motor === #
+        self.selMotor()  # === asegura el motor === #
 
-        self.conexion()                                                         # === conexión con la base === #
+        self.conexion()  # === conexión con la base === #
 
-        self.cargarProvincia()                                                  # === llena las provincias === #
+        self.cargarProvincia()  # === llena las provincias === #
 
-        self.mostrarTabCocheCli()                                               # === muestra la tabla de coches === #
+        self.mostrarTabCocheCli()  # === muestra la tabla de coches === #
 
-        self.mostrarTabProductos()                                              # === muestra la tabla productos === #
+        self.mostrarTabProductos()  # === muestra la tabla productos === #
 
-        self.restructuracionTablaCocheCli()                                     # === reestructura la tabla coches === #
+        self.restructuracionTablaCocheCli()  # === reestructura la tabla coches === #
 
-        self.ui.cmbProCli.currentIndexChanged.connect(self.cargarMunicipio)     # === llena los municipios ===#
+        self.ui.cmbProCli.currentIndexChanged.connect(self.cargarMunicipio)  # === llena los municipios ===#
 
-        self.ui.mostrarTabFacturas()                                            # === muestra la tabla de facturas === #
+        # self.ui.mostrarTabFacturas()                                            # === muestra la tabla de facturas === #
 
         '''
         Llamadas a funciones de servicios (examen)
         '''
-        self.ui.btnBorrarProd.clicked.connect(self.eliminarProducto)            # === borra un producto === #
+        self.ui.btnBorrarProd.clicked.connect(self.eliminarProducto)  # === borra un producto === #
 
-        self.ui.tabProd.clicked.connect(self.cargaProducto)                     # === carga un producto === #
+        self.ui.tabProd.clicked.connect(self.cargaProducto)  # === carga un producto === #
 
-        self.ui.btnModificarProd.clicked.connect(self.modificarProducto)        # === modifica un producto === #
+        self.ui.btnModificarProd.clicked.connect(self.modificarProducto)  # === modifica un producto === #
 
-        self.ui.btnAnhadirProd.clicked.connect(self.creaProd)                   # === crea un producto === #
+        self.ui.btnAnhadirProd.clicked.connect(self.creaProd)  # === crea un producto === #
 
-        self.ui.btnExportarProd.clicked.connect(self.exportaProd)               # === exporta los productos === #
+        self.ui.btnExportarProd.clicked.connect(self.exportaProd)  # === exporta los productos === #
 
         '''
         Llamadas a funciones de informes
         '''
-        self.ui.actionInforme_Clientes.triggered.connect(self.crearInformeCli)      # === crea informe de clientes === #
-        
-        self.ui.actionInforme_Coches.triggered.connect(self.crearInformeAuto)       # === crea informe de coches === #
+        self.ui.actionInforme_Clientes.triggered.connect(self.crearInformeCli)  # === crea informe de clientes === #
+
+        self.ui.actionInforme_Coches.triggered.connect(self.crearInformeAuto)  # === crea informe de coches === #
+
     '''
     ========================================================================================================================
     
@@ -544,18 +545,15 @@ class Main(QtWidgets.QMainWindow):
                           '     from coches '
                           '     order by marca, modelo;')
 
-
             if query.exec():
                 while query.next():
-
-
                     tabla.setRowCount(indice + 1)
 
-                    tabla.setItem( indice, 0, QtWidgets.QTableWidgetItem(str(query.value(1))))
-                    tabla.setItem( indice, 1, QtWidgets.QTableWidgetItem(str(query.value(0))))
-                    tabla.setItem( indice, 2, QtWidgets.QTableWidgetItem(str(query.value(2))))
-                    tabla.setItem( indice, 3, QtWidgets.QTableWidgetItem(str(query.value(3))))
-                    tabla.setItem( indice, 4, QtWidgets.QTableWidgetItem(str(query.value(4))))
+                    tabla.setItem(indice, 0, QtWidgets.QTableWidgetItem(str(query.value(1))))
+                    tabla.setItem(indice, 1, QtWidgets.QTableWidgetItem(str(query.value(0))))
+                    tabla.setItem(indice, 2, QtWidgets.QTableWidgetItem(str(query.value(2))))
+                    tabla.setItem(indice, 3, QtWidgets.QTableWidgetItem(str(query.value(3))))
+                    tabla.setItem(indice, 4, QtWidgets.QTableWidgetItem(str(query.value(4))))
 
                     indice = indice + 1
 
@@ -597,14 +595,23 @@ class Main(QtWidgets.QMainWindow):
             query2.prepare('delete from clientes where dni = :dni')
             query2.bindValue(':dni', str(self.ui.txtDniCli.text()))
 
-
-
-
-            if query3.exec() != "":
+            tabla = self.dlgHistorico.ui.tabBajas
+            indice = 0;
+            if query3.exec():
+                while query3.next():
+                    tabla.setRowCount(indice + 1)
+                    tabla.setItem(0, 0, QtWidgets.QTableWidgetItem(str(query3.value(1))))
+                    tabla.setItem(0, 1, QtWidgets.QTableWidgetItem(str(query3.value(0))))
+                    tabla.setItem(0, 2, QtWidgets.QTableWidgetItem(str(query3.value(2))))
+                    tabla.setItem(0, 3, QtWidgets.QTableWidgetItem(str(query3.value(3))))
+                    tabla.setItem(0, 4, QtWidgets.QTableWidgetItem(str(query3.value(4))))
+                    tabla.setItem(0, 5, QtWidgets.QTableWidgetItem(str(datetime.today())))
+                    indice = indice + 1
                 query1.exec()
 
             query1.exec()
             query2.exec()
+
             if query2.exec():
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('ALERTA')
@@ -644,7 +651,6 @@ class Main(QtWidgets.QMainWindow):
                         newCar = []
                         for j in range(columnas):
                             newCar.append(str(datos.cell_value(i, j)))
-
 
                         print(newCar)
                         if self.validarDNI(str(newCar[1])):
@@ -750,7 +756,7 @@ class Main(QtWidgets.QMainWindow):
                 while query.next():
                     tabla.setRowCount(indice + 1)
 
-                    tabla.setItem(indice, 0, QtWidgets.QTableWidgetItem(str(indice+1)))
+                    tabla.setItem(indice, 0, QtWidgets.QTableWidgetItem(str(indice + 1)))
                     tabla.setItem(indice, 1, QtWidgets.QTableWidgetItem(str(query.value(0))))
                     tabla.setItem(indice, 2, QtWidgets.QTableWidgetItem(str(query.value(1))))
 
@@ -762,14 +768,9 @@ class Main(QtWidgets.QMainWindow):
     def eliminarProducto(self):
         try:
 
-
-
             query1 = QtSql.QSqlQuery()
             query1.prepare('delete from servicios where servicio = :concepto')
             query1.bindValue(':concepto', str(self.ui.txtConcepto.text().lower()))
-
-
-
 
             if query1.exec():
                 msg = QtWidgets.QMessageBox()
@@ -795,17 +796,12 @@ class Main(QtWidgets.QMainWindow):
 
         try:
 
-
             fila = self.ui.tabProd.selectedItems()
             datos = [self.ui.txtConcepto, self.ui.txtPrecio]
             row = [dato.text() for dato in fila]
 
             for i, dato in enumerate(datos):
                 dato.setText(row[i])
-
-
-
-
 
             self.ui.txtConcepto.setText(row[1].title())
 
@@ -825,7 +821,6 @@ class Main(QtWidgets.QMainWindow):
             producto = [self.ui.txtConcepto, self.ui.txtPrecio]
             for i in producto:
                 modProd.append(i.text())
-
 
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -854,19 +849,16 @@ class Main(QtWidgets.QMainWindow):
     def creaProd(self):
         try:
 
-
             newprod = []
             producto = [self.ui.txtConcepto, self.ui.txtPrecio.text()]
             for i in producto:
                 newprod.append(i.text())
-
 
             query = QtSql.QSqlQuery()
             query.prepare(
                 'insert into servicios (servicio, precio) values (:concepto, :precio)')
             query.bindValue(":concepto", str(newprod[0].title()))
             query.bindValue(":precio", str(newprod[1]))
-
 
             if query.exec():
                 msg = QtWidgets.QMessageBox()
@@ -880,7 +872,6 @@ class Main(QtWidgets.QMainWindow):
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                 msg.setText(query.lastError().text())
                 msg.exec()
-
 
             self.mostrarTabProductos()
 
@@ -898,7 +889,6 @@ class Main(QtWidgets.QMainWindow):
         sheet1.write(0, 0, 'ID')
         sheet1.write(0, 1, 'Concepto')
         sheet1.write(0, 2, 'Precio')
-
 
         fila = 1
         query = QtSql.QSqlQuery()
@@ -923,35 +913,32 @@ class Main(QtWidgets.QMainWindow):
 
     def crearInformeCli(self):
 
-            try:
-                self.titulo = 'LISTA DE CLIENTES'
+        try:
+            self.titulo = 'LISTA DE CLIENTES'
 
-                dir, file = QtWidgets.QFileDialog().getSaveFileName(None, 'Guardar Datos', "Listado", '.pdf')
-                self.report = canvas.Canvas(dir+file)
+            dir, file = QtWidgets.QFileDialog().getSaveFileName(None, 'Guardar Datos', "Listado", '.pdf')
+            self.report = canvas.Canvas(dir + file)
 
-                self.report.drawString(230,700, 'LISTA DE CLIENTES')
-                items = ['DNI', 'Nombre', 'Dirección', 'Provincia', 'Municipio']
-                self.report.line(50, 660, 525, 660)
-                self.report.setFont('Helvetica-Bold', size=10)
-                self.report.drawString(60, 650, items[0])
-                self.report.drawString(120, 650, items[1])
-                self.report.drawString(270, 650, items[2])
-                self.report.drawString(360, 650, items[3])
-                self.report.drawString(460, 650, items[4])
-                self.report.line(50, 645, 525, 645)
-                self.cuerpoInformeCliente()
-                self.pieInforme()
-                self.topInforme()
-                self.report.save()
+            self.report.drawString(230, 700, 'LISTA DE CLIENTES')
+            items = ['DNI', 'Nombre', 'Dirección', 'Provincia', 'Municipio']
+            self.report.line(50, 660, 525, 660)
+            self.report.setFont('Helvetica-Bold', size=10)
+            self.report.drawString(60, 650, items[0])
+            self.report.drawString(120, 650, items[1])
+            self.report.drawString(270, 650, items[2])
+            self.report.drawString(360, 650, items[3])
+            self.report.drawString(460, 650, items[4])
+            self.report.line(50, 645, 525, 645)
+            self.cuerpoInformeCliente()
+            self.pieInforme()
+            self.topInforme()
+            self.report.save()
 
+            # rootPath = '.\\informes'
+            # os.startfile('%s\%s' % (rootPath, 'listadoClientes.pdf'))
+        except Exception as error:
+            print('Error informes estado clientes: ' + str(error))
 
-
-
-                #rootPath = '.\\informes'
-                #os.startfile('%s\%s' % (rootPath, 'listadoClientes.pdf'))
-            except Exception as error:
-                print('Error informes estado clientes: '+ str(error))
-            
     def crearInformeAuto(self):
         try:
             self.titulo = 'LISTA DE VEHÍCULOS'
@@ -971,21 +958,21 @@ class Main(QtWidgets.QMainWindow):
             self.pieInforme()
             self.topInforme()
             self.report.save()
-            
+
         except Exception as error:
             print('Error informes estado clientes: ' + str(error))
 
     def pieInforme(self):
         try:
-            self.report.line(50,50,525,50)
+            self.report.line(50, 50, 525, 50)
             fecha = datetime.datetime.today()
             fecha = fecha.strftime('%d.%m.%Y %H:%M:%S')
             self.report.setFont('Helvetica-Oblique', size=7)
-            self.report.drawString(50,40, str(fecha))
+            self.report.drawString(50, 40, str(fecha))
             self.report.drawString(250, 40, str(self.titulo))
             self.report.drawString(475, 40, 'Página {}'.format(self.report.getPageNumber()))
         except Exception as error:
-            print('Error pie de informe de cualquier tipo: '+str(error))
+            print('Error pie de informe de cualquier tipo: ' + str(error))
 
     def topInforme(self):
         try:
@@ -1008,7 +995,7 @@ class Main(QtWidgets.QMainWindow):
 
 
         except Exception as error:
-            print('Error de cabecera: '+str(error))
+            print('Error de cabecera: ' + str(error))
 
     def cuerpoInformeCliente(self):
         items = ['DNI', 'Nombre', 'Dirección', 'Provincia', 'Municipio']
@@ -1016,8 +1003,6 @@ class Main(QtWidgets.QMainWindow):
         query = QtSql.QSqlQuery()
         query.prepare('select dni, nombre, direccion, provincia, municipio '
                       'from clientes order by nombre')
-
-
 
         self.report.setFont('Helvetica', size=8)
 
@@ -1095,11 +1080,8 @@ class Main(QtWidgets.QMainWindow):
                     if ((x >= 5) and (x < 8)):
                         censura = censura + dni[x]
 
-
                     if x == 8:
                         censura = censura + '*'
-
-
 
                 self.report.drawString(i, j, str(censura))
                 self.report.drawString(i + 60, j, str(query.value(1)))
@@ -1112,8 +1094,6 @@ class Main(QtWidgets.QMainWindow):
         query = QtSql.QSqlQuery()
         query.prepare('select dniCli, matricula, marca, modelo, motor '
                       'from coches order by marca')
-
-
 
         self.report.setFont('Helvetica', size=8)
 
@@ -1160,5 +1140,3 @@ class Main(QtWidgets.QMainWindow):
 
         for i, dato in fila:
             dato.setText(row[i])
-
-
