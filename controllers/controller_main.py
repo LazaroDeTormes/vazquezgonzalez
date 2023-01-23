@@ -65,6 +65,8 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.btnHist.clicked.connect(self.abrirHistorico)                    # === abre el histórico === #
 
+        self.ui.btnFacturar.clicked.connect(self.facturar)                      # === crea una factura === #
+
         '''
         Listado de eventos de cajas del formulario
         '''
@@ -95,7 +97,7 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.cmbProCli.currentIndexChanged.connect(self.cargarMunicipio)     # === llena los municipios ===#
 
-        self.ui.mostrarTabFacturas()                                            # === muestra la tabla de facturas === #
+        self.ui.tabCli.clicked.connect(self.mostrarTabFacturas)                 # === muestra la tabla de facturas === #
 
         '''
         Llamadas a funciones de servicios (examen)
@@ -508,12 +510,12 @@ class Main(QtWidgets.QMainWindow):
 
             query2 = QtSql.QSqlQuery()
             query2.prepare(
-                'insert into coches (matricula, dniCli, modelo, marca, motor) '
-                '   values (:matricula, :dniCli, :modelo, :marca, :motor)')
+                'insert into coches (matricula, dniCli, marca, modelo, motor) '
+                '   values (:matricula, :dniCli, :marca, :modelo, :motor)')
             query2.bindValue(":matricula", str(newcar[0]))
             query2.bindValue(":dniCli", str(newcli[0]))
-            query2.bindValue(":modelo", str(newcar[1]))
-            query2.bindValue(":marca", str(newcar[2]))
+            query2.bindValue(":marca", str(newcar[1]))
+            query2.bindValue(":modelo", str(newcar[2]))
             query2.bindValue(":motor", str(newcar[3]))
 
             if query2.exec():
@@ -597,14 +599,23 @@ class Main(QtWidgets.QMainWindow):
             query2.prepare('delete from clientes where dni = :dni')
             query2.bindValue(':dni', str(self.ui.txtDniCli.text()))
 
-
-
-
-            if query3.exec() != "":
+            tabla = self.dlgHistorico.ui.tabBajas
+            indice = 0;
+            if query3.exec():
+                while query3.next():
+                    tabla.setRowCount(indice + 1)
+                    tabla.setItem(0, 0, QtWidgets.QTableWidgetItem(str(query3.value(1))))
+                    tabla.setItem(0, 1, QtWidgets.QTableWidgetItem(str(query3.value(0))))
+                    tabla.setItem(0, 2, QtWidgets.QTableWidgetItem(str(query3.value(2))))
+                    tabla.setItem(0, 3, QtWidgets.QTableWidgetItem(str(query3.value(3))))
+                    tabla.setItem(0, 4, QtWidgets.QTableWidgetItem(str(query3.value(4))))
+                    tabla.setItem(0, 5, QtWidgets.QTableWidgetItem(str(datetime.today())))
+                    indice = indice + 1
                 query1.exec()
 
             query1.exec()
             query2.exec()
+
             if query2.exec():
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('ALERTA')
@@ -1154,11 +1165,57 @@ class Main(QtWidgets.QMainWindow):
                 j = j - 20
 
     def mostrarTabFacturas(self):
+        tabla = self.ui.tabFac
+        indice = 0
+
         fila = self.ui.tabCli.selectedItems()
         datos = [self.ui.textBoxDniCliFac, self.ui.txtMatrFac]
         row = [dato.text() for dato in fila]
-
-        for i, dato in fila:
+        for i, dato in enumerate(datos):
             dato.setText(row[i])
+        self.ui.txtFechaCliFac.setText(self.ui.txtFechaCli.text())
 
 
+        query = QtSql.QSqlQuery()
+        query.prepare("select id_factura, dniCli, matrAuto from facturas where dniCli = :dni")
+        query.bindValue(":dni", str(self.ui.textBoxDniCliFac.text()))
+
+        if query.exec():
+            while query.next():
+                tabla.setRowCount(indice + 1)
+
+                tabla.setItem(indice, 0, QtWidgets.QTableWidgetItem(str(query.value(0))))
+                tabla.setItem(indice, 1, QtWidgets.QTableWidgetItem(str(query.value(1))))
+                tabla.setItem(indice, 2, QtWidgets.QTableWidgetItem(str(query.value(2))))
+
+
+                indice = indice + 1
+
+
+    def facturar(self):
+        try:
+
+
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                'insert into facturas (dniCli, matrAuto) values (:dni, :matr)')
+            query.bindValue(":dni", str(self.ui.textBoxDniCliFac.text()))
+            query.bindValue(":matr", str(self.ui.txtMatrFac.text()))
+
+            if query.exec():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle("Aviso")
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText("Factura impuesta")
+                msg.exec()
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle("Aviso")
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+
+            self.mostrarTabFacturas()
+
+        except Exception as error:
+            print(error)
