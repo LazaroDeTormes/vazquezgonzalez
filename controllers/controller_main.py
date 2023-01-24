@@ -901,6 +901,7 @@ class Main(QtWidgets.QMainWindow):
 
 
             self.mostrarTabProductos()
+            self.cmbServicio.addItem(str(newprod[0]))
 
         except Exception as error:
             print(error)
