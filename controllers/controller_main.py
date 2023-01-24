@@ -2,8 +2,7 @@ import calendar
 
 import xlrd as xlrd
 import xlwt
-from PyQt6 import QtWidgets, QtSql
-from PyQt6.uic.properties import QtCore
+from PyQt6 import QtWidgets, QtSql, QtCore
 from reportlab.pdfgen import canvas
 
 from views import Ui_venMain
@@ -98,6 +97,14 @@ class Main(QtWidgets.QMainWindow):
         self.ui.cmbProCli.currentIndexChanged.connect(self.cargarMunicipio)     # === llena los municipios ===#
 
         self.ui.tabCli.clicked.connect(self.mostrarTabFacturas)                 # === muestra la tabla de facturas === #
+
+        self.cargaLineaVenta(0)                                                 # === carga las líneas de venta === #
+
+        self.alinearTablaVentas()                                               # === alinea la tabla de ventas === #
+
+        self.alinearTablaFacturas()                                             # === alinea la tabla de facturas === #
+
+        self.alinearTablaServicios()                                            # === alinea la tabla de servicios === #
 
         '''
         Llamadas a funciones de servicios (examen)
@@ -867,7 +874,7 @@ class Main(QtWidgets.QMainWindow):
 
 
             newprod = []
-            producto = [self.ui.txtConcepto, self.ui.txtPrecio.text()]
+            producto = [self.ui.txtConcepto, self.ui.txtPrecio]
             for i in producto:
                 newprod.append(i.text())
 
@@ -1217,5 +1224,61 @@ class Main(QtWidgets.QMainWindow):
 
             self.mostrarTabFacturas()
 
+        except Exception as error:
+            print(error)
+
+    def cargaLineaVenta(self, index):
+        try:
+            self.cmbServicio = QtWidgets.QComboBox()
+            self.cmbServicio.setFixedSize(170, 30)
+            self.txtUnidades = QtWidgets.QLineEdit()
+            self.txtUnidades.setFixedSize(85,30)
+            self.txtUnidades.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.ui.tabVentas.setRowCount(index+1)
+            self.ui.tabVentas.setCellWidget(index,0, self.cmbServicio)
+            self.ui.tabVentas.setCellWidget(index, 1, self.txtUnidades)
+            self.cargaComboVentas()
+        except Exception as error:
+            print('Hay un error en las líneas: '+str(error))
+
+
+    def cargaComboVentas(self):
+        try:
+            self.cmbServicio.clear()
+            query = QtSql.QSqlQuery()
+            query.prepare('select servicio from servicios order by servicio')
+            if query.exec():
+                while query.next():
+                    self.cmbServicio.addItem(str(query.value(0)))
+        except Exception as error:
+            print(error)
+
+    def alinearTablaVentas(self):
+        try:
+            header = self.ui.tabVentas.horizontalHeader()
+            for i in range(header.model().columnCount()):
+                header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.Stretch)
+                if i ==0:
+                    header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+        except Exception as error:
+            print(error)
+
+    def alinearTablaFacturas(self):
+        try:
+            header = self.ui.tabFac.horizontalHeader()
+            for i in range(header.model().columnCount()):
+                header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.Stretch)
+                if i ==0:
+                    header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+        except Exception as error:
+            print(error)
+
+    def alinearTablaServicios(self):
+        try:
+            header = self.ui.tabProd.horizontalHeader()
+            for i in range(header.model().columnCount()):
+                header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.Stretch)
+                if i ==0:
+                    header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
         except Exception as error:
             print(error)
