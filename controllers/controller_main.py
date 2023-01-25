@@ -15,6 +15,8 @@ import os
 
 
 class Main(QtWidgets.QMainWindow):
+
+
     def __init__(self):
         super(Main, self).__init__()
 
@@ -24,6 +26,7 @@ class Main(QtWidgets.QMainWindow):
         self.dlgcalendar = DialogCalendar()
         self.avisoDatos = DialogoDatos()
         self.dlgHistorico = DialogoHistorico()
+        indice = 0
 
         '''
         Eventos de la barra de iconos
@@ -98,13 +101,17 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.tabCli.clicked.connect(self.mostrarTabFacturas)                 # === muestra la tabla de facturas === #
 
-        self.cargaLineaVenta(0)                                                 # === carga las líneas de venta === #
+        self.cargaLineaVenta(indice)                                                 # === carga las líneas de venta === #
 
         self.alinearTablaVentas()                                               # === alinea la tabla de ventas === #
 
         self.alinearTablaFacturas()                                             # === alinea la tabla de facturas === #
 
         self.alinearTablaServicios()                                            # === alinea la tabla de servicios === #
+
+        self.cargarPrecioVentas()                                               # === carga el precio del servicio === #
+
+        self.totalLineaVenta()                                                  # === carga el precio total === #
 
         '''
         Llamadas a funciones de servicios (examen)
@@ -1237,7 +1244,7 @@ class Main(QtWidgets.QMainWindow):
             self.txtUnidades.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.ui.tabVentas.setRowCount(index+1)
             self.ui.tabVentas.setCellWidget(index,0, self.cmbServicio)
-            self.ui.tabVentas.setCellWidget(index, 1, self.txtUnidades)
+            self.ui.tabVentas.setCellWidget(index, 2, self.txtUnidades)
             self.cargaComboVentas()
         except Exception as error:
             print('Hay un error en las líneas: '+str(error))
@@ -1251,6 +1258,45 @@ class Main(QtWidgets.QMainWindow):
             if query.exec():
                 while query.next():
                     self.cmbServicio.addItem(str(query.value(0)))
+        except Exception as error:
+            print(error)
+
+    def cargarPrecioVentas(self):
+        try:
+            tabla = self.ui.tabVentas
+            row = self.ui.tabVentas.currentRow()
+            print(row)
+            servicio = self.cmbServicio.currentText()
+            precio = self.obtenerPrecio(servicio)
+            precio = precio.replace('.',',')
+            precio = precio + '€'
+            tabla.setItem(row, 1, QtWidgets.QTableWidgetItem(str(precio)))
+            tabla.item(row, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        except Exception as error:
+            print(error)
+
+    def totalLineaVenta(self):
+        try:
+            row = self.ui.tabVentas.currentRow()
+            precio = self.ui.tabVentas.item(row, 1).text().replace(',','.')
+            cantidad = round(float(self.txtUnidades.text().replace(',','.')),2)
+            total = round(float(precio),2)*round(float(cantidad),2)
+            total = total.replace('.',',')+'€'
+            self.ui.tabVentas.setItem(row, 3, QtWidgets.QTableWidgetItem(str(total)))
+            self.ui.tabVentas.item(row, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        except Exception as error:
+            print(error)
+
+    def obtenerPrecio(self, servicio):
+        try:
+            precio = ""
+            query = QtSql.QSqlQuery()
+            query.prepare('select precio from servicios where servicio = :servicio')
+            query.bindValue(':servicio', str(servicio))
+            if query.exec():
+                while query.next():
+                    precio = str(query.value(0))
+            return precio
         except Exception as error:
             print(error)
 

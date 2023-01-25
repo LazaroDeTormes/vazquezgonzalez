@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>820</width>
-    <height>460</height>
+    <width>803</width>
+    <height>468</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>160</y>
+     <x>10</x>
+     <y>170</y>
      <width>780</width>
      <height>290</height>
     </rect>
@@ -74,47 +74,20 @@
     </property>
    </column>
   </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>821</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 209, 8);
-background-color: rgb(58, 58, 58);</string>
-   </property>
-   <property name="text">
-    <string>HISTÓRICO DE BAJAS</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>50</y>
+     <x>30</x>
+     <y>70</y>
      <width>241</width>
-     <height>101</height>
+     <height>91</height>
     </rect>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>../../../OneDrive/Documentos/CLASE/vazquezgonzalez/img/decoraciones/coche.png</pixmap>
+    <pixmap>../img/decoraciones/coche.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -123,17 +96,17 @@ background-color: rgb(58, 58, 58);</string>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>336</x>
+     <x>320</x>
      <y>60</y>
      <width>171</width>
-     <height>91</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>../../../OneDrive/Documentos/CLASE/vazquezgonzalez/img/decoraciones/calavera.png</pixmap>
+    <pixmap>../img/decoraciones/calavera.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -143,7 +116,7 @@ background-color: rgb(58, 58, 58);</string>
    <property name="geometry">
     <rect>
      <x>550</x>
-     <y>60</y>
+     <y>70</y>
      <width>221</width>
      <height>91</height>
     </rect>
@@ -152,11 +125,106 @@ background-color: rgb(58, 58, 58);</string>
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>../../../OneDrive/Documentos/CLASE/vazquezgonzalez/img/decoraciones/cocheLlamas.png</pixmap>
+    <pixmap>../img/decoraciones/cocheLlamas.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
    </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>811</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_11">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="label_19">
+      <property name="maximumSize">
+       <size>
+        <width>330</width>
+        <height>49</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(58, 58, 58);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/decoraciones/llamaradas.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="lblDatos">
+      <property name="minimumSize">
+       <size>
+        <width>150</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>270</width>
+        <height>49</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 206, 8);
+background-color: rgb(58, 58, 58);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>HISTÓRICO</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_20">
+      <property name="maximumSize">
+       <size>
+        <width>330</width>
+        <height>49</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(58, 58, 58);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/decoraciones/llamaradas2.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
