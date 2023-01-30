@@ -111,7 +111,7 @@ class Main(QtWidgets.QMainWindow):
 
         self.cargarPrecioVentas()                                               # === carga el precio del servicio === #
 
-        self.totalLineaVenta()                                                  # === carga el precio total === #
+
 
         '''
         Llamadas a funciones de servicios (examen)
@@ -1192,7 +1192,7 @@ class Main(QtWidgets.QMainWindow):
 
 
         query = QtSql.QSqlQuery()
-        query.prepare("select id_factura, dniCli, matrAuto from facturas where dniCli = :dni")
+        query.prepare("select id_factura, matrAuto from facturas where dniCli = :dni")
         query.bindValue(":dni", str(self.ui.textBoxDniCliFac.text()))
 
         if query.exec():
@@ -1201,7 +1201,6 @@ class Main(QtWidgets.QMainWindow):
 
                 tabla.setItem(indice, 0, QtWidgets.QTableWidgetItem(str(query.value(0))))
                 tabla.setItem(indice, 1, QtWidgets.QTableWidgetItem(str(query.value(1))))
-                tabla.setItem(indice, 2, QtWidgets.QTableWidgetItem(str(query.value(2))))
 
 
                 indice = indice + 1
@@ -1240,12 +1239,23 @@ class Main(QtWidgets.QMainWindow):
             self.cmbServicio = QtWidgets.QComboBox()
             self.cmbServicio.setFixedSize(170, 30)
             self.txtUnidades = QtWidgets.QLineEdit()
-            self.txtUnidades.setFixedSize(85,30)
+            self.txtUnidades.setFixedSize(124,30)
             self.txtUnidades.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.txtPrecio = QtWidgets.QLineEdit()
+            self.txtPrecio.setFixedSize(124, 30)
+            self.txtPrecio.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.txtPrecio.setReadOnly(True)
+            self.txtTotal = QtWidgets.QLineEdit()
+            self.txtTotal.setFixedSize(124, 30)
+            self.txtTotal.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.txtTotal.setReadOnly(True)
             self.ui.tabVentas.setRowCount(index+1)
             self.ui.tabVentas.setCellWidget(index,0, self.cmbServicio)
+            self.ui.tabVentas.setCellWidget(index,1, self.txtPrecio)
             self.ui.tabVentas.setCellWidget(index, 2, self.txtUnidades)
+            self.ui.tabVentas.setCellWidget(index, 3, self.txtTotal)
             self.cargaComboVentas()
+            self.txtUnidades.editingFinished.connect(self.totalLineaVenta())
         except Exception as error:
             print('Hay un error en las líneas: '+str(error))
 
@@ -1270,20 +1280,24 @@ class Main(QtWidgets.QMainWindow):
             precio = self.obtenerPrecio(servicio)
             precio = precio.replace('.',',')
             precio = precio + '€'
-            tabla.setItem(row, 1, QtWidgets.QTableWidgetItem(str(precio)))
-            tabla.item(row, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.txtPrecio.setText(precio)
+            self.txtPrecio.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         except Exception as error:
             print(error)
 
     def totalLineaVenta(self):
         try:
-            row = self.ui.tabVentas.currentRow()
-            precio = self.ui.tabVentas.item(row, 1).text().replace(',','.')
-            cantidad = round(float(self.txtUnidades.text().replace(',','.')),2)
-            total = round(float(precio),2)*round(float(cantidad),2)
-            total = total.replace('.',',')+'€'
-            self.ui.tabVentas.setItem(row, 3, QtWidgets.QTableWidgetItem(str(total)))
-            self.ui.tabVentas.item(row, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            while (self.txtUnidades.text() != ""):
+                row = self.ui.tabVentas.currentRow()
+                precio = self.txtPrecio.text().replace(',', '.')
+                precio = precio.replace('€', '0')
+                print(precio)
+                cantidad = self.txtUnidades.text()
+                print(cantidad)
+                total = float(precio)*float(cantidad).__format__('.2f')
+                total = str(total).replace('.', ',')+'€'
+                self.txtTotal.setText(total)
+                self.txtTotal.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         except Exception as error:
             print(error)
 
@@ -1329,3 +1343,32 @@ class Main(QtWidgets.QMainWindow):
                     header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
         except Exception as error:
             print(error)
+
+    def factura(self):
+        self.report = canvas.Canvas("informes/factura.pdf")
+        titulo = "FACTURA"
+        self.pieInforme()
+        self.topInforme()
+
+        cliente = []
+        dni=str(self.ui.textBoxDniCliFac.text())
+        cliente = self.consultaDni(dni)
+        print(cliente)
+        self.report.setFont('Helvetica', size=9)
+        self.report.drawString(55, 680, 'DATOS DEL CLIENTE')
+        self.report.drawString(55, 675, 'Nº de factura: ')
+        self.report.drawString(55, 660, 'DNI/CIF: ' + str(dni))
+        self.report.drawString(55, 645, 'Nombre: ' + str(cliente[0]))
+        self.report.drawString(55, 630, 'Dirección: ' + str(cliente[2]))
+        self.report.drawString(55, 615, 'Provincia: ' + str(cliente[3]))
+        self.report.drawString(55, 600, 'Municipio: ' + str(cliente[4]))
+
+
+
+        self.report.save()
+        rootPath = '.\\informes'
+        for file in os.listdir(rootPath):
+            if file.endswith('factura.pdf'):
+                os.startfile('%s/%s' % (rootPath, file))
+
+
