@@ -67,7 +67,9 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.btnHist.clicked.connect(self.abrirHistorico)                    # === abre el histórico === #
 
-        self.ui.btnFacturar.clicked.connect(self.facturar)                      # === crea una factura === #
+        self.ui.btnFacturar.clicked.connect(self.facturar)
+
+        self.ui.btnImprimirFac.clicked.connect(self.factura)
 
         '''
         Listado de eventos de cajas del formulario
@@ -99,9 +101,11 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.cmbProCli.currentIndexChanged.connect(self.cargarMunicipio)     # === llena los municipios ===#
 
-        self.ui.tabCli.clicked.connect(self.mostrarTabFacturas)                 # === muestra la tabla de facturas === #
+        self.mostrarTabFacturas()                                               # === muestra la tabla de facturas === #
 
-        self.cargaLineaVenta(indice)                                                 # === carga las líneas de venta === #
+        self.ui.tabFac.clicked.connect(self.cargarFactura)                      # === carga los datos de facturas === #
+
+        self.cargaLineaVenta(indice)                                            # === carga las líneas de venta === #
 
         self.alinearTablaVentas()                                               # === alinea la tabla de ventas === #
 
@@ -109,7 +113,9 @@ class Main(QtWidgets.QMainWindow):
 
         self.alinearTablaServicios()                                            # === alinea la tabla de servicios === #
 
-        self.cargarPrecioVentas()                                               # === carga el precio del servicio === #
+        self.cmbServicio.currentIndexChanged.connect(self.cargarPrecioVentas)   # === carga el precio del servicio === #
+
+        self.txtUnidades.editingFinished.connect(self.totalLineaVenta)
 
 
 
@@ -1183,17 +1189,8 @@ class Main(QtWidgets.QMainWindow):
         tabla = self.ui.tabFac
         indice = 0
 
-        fila = self.ui.tabCli.selectedItems()
-        datos = [self.ui.textBoxDniCliFac, self.ui.txtMatrFac]
-        row = [dato.text() for dato in fila]
-        for i, dato in enumerate(datos):
-            dato.setText(row[i])
-        self.ui.txtFechaCliFac.setText(self.ui.txtFechaCli.text())
-
-
         query = QtSql.QSqlQuery()
-        query.prepare("select id_factura, matrAuto from facturas where dniCli = :dni")
-        query.bindValue(":dni", str(self.ui.textBoxDniCliFac.text()))
+        query.prepare("select id_factura, matrAuto from facturas")
 
         if query.exec():
             while query.next():
@@ -1205,6 +1202,29 @@ class Main(QtWidgets.QMainWindow):
 
                 indice = indice + 1
 
+    def cargarFactura(self):
+
+        try:
+            fila = self.ui.tabFac.selectedItems()
+            row = [dato.text() for dato in fila]
+            print(row)
+
+            query = QtSql.QSqlQuery()
+            query.prepare('select * from facturas where id_factura = :num')
+            query.bindValue(':num', str(row[0]))
+
+            query2 = QtSql.QSqlQuery()
+            query2.prepare('select alta from clientes where dni = :dni')
+            query2.bindValue(':dni', str(query.value(1)))
+            print(row[0])
+
+            if query.exec():
+                if query2.exec():
+                    self.ui.textBoxDniCliFac.setText(str(query.value(1)))
+                    self.ui.txtMatrFac.setText(str(query.value(2)))
+                    self.ui.txtFechaCliFac.setText(str(query2.value(0)))
+        except Exception as error:
+            print(error)
 
     def facturar(self):
         try:
@@ -1255,10 +1275,8 @@ class Main(QtWidgets.QMainWindow):
             self.ui.tabVentas.setCellWidget(index, 2, self.txtUnidades)
             self.ui.tabVentas.setCellWidget(index, 3, self.txtTotal)
             self.cargaComboVentas()
-            self.txtUnidades.editingFinished.connect(self.totalLineaVenta())
         except Exception as error:
             print('Hay un error en las líneas: '+str(error))
-
 
     def cargaComboVentas(self):
         try:
@@ -1283,23 +1301,22 @@ class Main(QtWidgets.QMainWindow):
             self.txtPrecio.setText(precio)
             self.txtPrecio.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         except Exception as error:
-            print(error)
+            print("precio: "+str(error))
 
     def totalLineaVenta(self):
         try:
-            while (self.txtUnidades.text() != ""):
-                row = self.ui.tabVentas.currentRow()
-                precio = self.txtPrecio.text().replace(',', '.')
-                precio = precio.replace('€', '0')
-                print(precio)
-                cantidad = self.txtUnidades.text()
-                print(cantidad)
-                total = float(precio)*float(cantidad).__format__('.2f')
-                total = str(total).replace('.', ',')+'€'
-                self.txtTotal.setText(total)
-                self.txtTotal.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            row = self.ui.tabVentas.currentRow()
+            precio = self.txtPrecio.text().replace(',', '.')
+            precio = precio.replace('€', '0')
+            print(precio)
+            cantidad = self.txtUnidades.text()
+            print(cantidad)
+            total = float(precio)*float(cantidad)
+            total = str(total).replace('.', ',')+'€'
+            self.txtTotal.setText(total)
+            self.txtTotal.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         except Exception as error:
-            print(error)
+            print("total: "+str(error))
 
     def obtenerPrecio(self, servicio):
         try:
@@ -1312,7 +1329,7 @@ class Main(QtWidgets.QMainWindow):
                     precio = str(query.value(0))
             return precio
         except Exception as error:
-            print(error)
+            print('obtención de precio: '+str(error))
 
     def alinearTablaVentas(self):
         try:
@@ -1352,7 +1369,7 @@ class Main(QtWidgets.QMainWindow):
 
         cliente = []
         dni=str(self.ui.textBoxDniCliFac.text())
-        cliente = self.consultaDni(dni)
+        cliente = self.cargaCliente()
         print(cliente)
         self.report.setFont('Helvetica', size=9)
         self.report.drawString(55, 680, 'DATOS DEL CLIENTE')
