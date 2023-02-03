@@ -1207,11 +1207,12 @@ class Main(QtWidgets.QMainWindow):
         try:
             fila = self.ui.tabFac.selectedItems()
             row = [dato.text() for dato in fila]
-            print(row)
+            print(row[0])
 
             query = QtSql.QSqlQuery()
             query.prepare('select * from facturas where id_factura = :num')
             query.bindValue(':num', str(row[0]))
+            print(query.value(0))
 
             query2 = QtSql.QSqlQuery()
             query2.prepare('select alta from clientes where dni = :dni')

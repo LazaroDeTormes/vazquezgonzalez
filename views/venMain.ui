@@ -48,7 +48,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <property name="iconSize">
      <size>
@@ -2081,7 +2081,7 @@ color: rgb(255, 206, 8);</string>
        <enum>Qt::Vertical</enum>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>640</x>
@@ -2853,7 +2853,7 @@ color: rgb(255, 206, 8);</string>
   <action name="SalirBarra">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../.designer/img/salir.jpg</normaloff>../../../../../.designer/img/salir.jpg</iconset>
+     <normaloff>../img/salir.png</normaloff>../img/salir.png</iconset>
    </property>
    <property name="text">
     <string>SalirBarra</string>
@@ -2872,7 +2872,7 @@ color: rgb(255, 206, 8);</string>
   <action name="actionCrearBU2">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../.designer/img/crear_backup.jpg</normaloff>../../../../../.designer/img/crear_backup.jpg</iconset>
+     <normaloff>../img/crearBackup.png</normaloff>../img/crearBackup.png</iconset>
    </property>
    <property name="text">
     <string>Crear BackUp 2</string>
@@ -2881,7 +2881,7 @@ color: rgb(255, 206, 8);</string>
   <action name="actionRestaurarBU2">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../.designer/img/restarurar_backup.png</normaloff>../../../../../.designer/img/restarurar_backup.png</iconset>
+     <normaloff>../img/usarBackup.png</normaloff>../img/usarBackup.png</iconset>
    </property>
    <property name="text">
     <string>restaurar backup 2</string>
