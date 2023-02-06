@@ -1319,14 +1319,14 @@ class Main(QtWidgets.QMainWindow):
             venta = []
             venta.append(int(self.ui.txtNumFac.text()))
 
-            query = QtSql.QSqlQuery
+            query = QtSql.QSqlQuery()
             query.prepare('select id from servicios where servicio = :nombre')
             query.bindValue(":nombre", str(self.cmbServicio.currentText()))
             if query.exec():
                 while query.next():
                     venta.append(int(query.value(0)))
-            venta.append(int(self.txtUnidades.text()))
-            venta.append(int(self.txtPrecio.text()))
+            venta.append(float(self.txtUnidades.text()))
+            venta.append(float(self.txtPrecio.text().replace(',','.').replace('€','0')))
 
             self.registrarVenta(venta)
 
@@ -1336,7 +1336,7 @@ class Main(QtWidgets.QMainWindow):
 
     def registrarVenta(self, venta):
         try:
-            query = QtSql.QSqlQuery
+            query = QtSql.QSqlQuery()
             query.prepare('insert into ventas (facturaId, servicioId, cantidad, precio) VALUES (:codFac, :codSer, :canti, :precio)')
             query.bindValue(":codFac", int(venta[0]))
             query.bindValue(":codSer", int(venta[1]))
@@ -1346,7 +1346,7 @@ class Main(QtWidgets.QMainWindow):
             if query.exec():
                 print('Línea de venta realizada')
         except Exception as error:
-            print(error)
+            print('reigistro: '+str(error))
 
 
     def obtenerPrecio(self, servicio):
