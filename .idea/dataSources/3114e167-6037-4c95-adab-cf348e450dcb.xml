@@ -1423,112 +1423,122 @@
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <key id="511" parent="484">
+    <column id="511" parent="484" name="fechaFac">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <key id="512" parent="484">
       <ColNames>id_factura</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="512" parent="485" name="provincia_id">
+    <column id="513" parent="485" name="provincia_id">
       <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="513" parent="485" name="municipio">
+    <column id="514" parent="485" name="municipio">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="514" parent="485" name="id">
+    <column id="515" parent="485" name="id">
       <DasType>INTEGER|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="515" parent="486" name="id">
+    <column id="516" parent="486" name="id">
       <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="516" parent="486" name="provincia">
+    <column id="517" parent="486" name="provincia">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="517" parent="487" name="id">
+    <column id="518" parent="487" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="518" parent="487" name="servicio">
+    <column id="519" parent="487" name="servicio">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="519" parent="487" name="precio">
+    <column id="520" parent="487" name="precio">
       <DasType>FLOAT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <key id="520" parent="487">
+    <key id="521" parent="487">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="521" parent="488" name="type">
+    <column id="522" parent="488" name="type">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="522" parent="488" name="name">
+    <column id="523" parent="488" name="name">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="523" parent="488" name="tbl_name">
+    <column id="524" parent="488" name="tbl_name">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="524" parent="488" name="rootpage">
+    <column id="525" parent="488" name="rootpage">
       <DasType>INT|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="525" parent="488" name="sql">
+    <column id="526" parent="488" name="sql">
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="526" parent="489" name="name">
+    <column id="527" parent="489" name="name">
       <Position>1</Position>
     </column>
-    <column id="527" parent="489" name="seq">
+    <column id="528" parent="489" name="seq">
       <Position>2</Position>
     </column>
-    <column id="528" parent="490" name="idVentas">
+    <column id="529" parent="490" name="idVentas">
       <AutoIncrement>1</AutoIncrement>
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="529" parent="490" name="facturaId">
+    <column id="530" parent="490" name="facturaId">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="530" parent="490" name="servicioId">
+    <column id="531" parent="490" name="servicioId">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="531" parent="490" name="cantidad">
+    <column id="532" parent="490" name="cantidad">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <foreign-key id="532" parent="490" name="facturaId">
+    <column id="533" parent="490" name="precio">
+      <DasType>REAL|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="534" parent="490" name="facturaId">
       <ColNames>facturaId</ColNames>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id_factura</RefColNames>
       <RefTableName>facturas</RefTableName>
     </foreign-key>
-    <foreign-key id="533" parent="490" name="servicioId">
+    <foreign-key id="535" parent="490" name="servicioId">
       <ColNames>servicioId</ColNames>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>servicios</RefTableName>
     </foreign-key>
-    <key id="534" parent="490" name="idVentas">
+    <key id="536" parent="490" name="idVentas">
       <ColNames>idVentas</ColNames>
       <Primary>1</Primary>
     </key>

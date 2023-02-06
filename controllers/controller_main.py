@@ -1207,23 +1207,22 @@ class Main(QtWidgets.QMainWindow):
         try:
             fila = self.ui.tabFac.selectedItems()
             row = [dato.text() for dato in fila]
-            print(row[0])
 
+
+
+            self.ui.txtMatrFac.setText(str(row[1]))
+            self.ui.txtNumFac.setText(str(row[0]))
             query = QtSql.QSqlQuery()
-            query.prepare('select * from facturas where id_factura = :num')
+            query.prepare('select dniCli, fechaFac from facturas where id_factura = :num')
             query.bindValue(':num', str(row[0]))
             print(query.value(0))
 
-            query2 = QtSql.QSqlQuery()
-            query2.prepare('select alta from clientes where dni = :dni')
-            query2.bindValue(':dni', str(query.value(1)))
-            print(row[0])
+
 
             if query.exec():
-                if query2.exec():
-                    self.ui.textBoxDniCliFac.setText(str(query.value(1)))
-                    self.ui.txtMatrFac.setText(str(query.value(2)))
-                    self.ui.txtFechaCliFac.setText(str(query2.value(0)))
+                while query.next():
+                    self.ui.textBoxDniCliFac.setText(str(query.value(0)))
+                    self.ui.txtFechaCliFac.setText(str(query.value(1)))
         except Exception as error:
             print(error)
 
@@ -1233,9 +1232,10 @@ class Main(QtWidgets.QMainWindow):
 
             query = QtSql.QSqlQuery()
             query.prepare(
-                'insert into facturas (dniCli, matrAuto) values (:dni, :matr)')
+                'insert into facturas (dniCli, matrAuto, fechaFac) values (:dni, :matr, :fecha)')
             query.bindValue(":dni", str(self.ui.textBoxDniCliFac.text()))
             query.bindValue(":matr", str(self.ui.txtMatrFac.text()))
+            query.bindValue(":fecha", str(self.ui.txtFechaCliFac.text()))
 
             if query.exec():
                 msg = QtWidgets.QMessageBox()
@@ -1316,8 +1316,38 @@ class Main(QtWidgets.QMainWindow):
             total = str(total).replace('.', ',')+'€'
             self.txtTotal.setText(total)
             self.txtTotal.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            venta = []
+            venta.append(int(self.ui.txtNumFac.text()))
+
+            query = QtSql.QSqlQuery
+            query.prepare('select id from servicios where servicio = :nombre')
+            query.bindValue(":nombre", str(self.cmbServicio.currentText()))
+            if query.exec():
+                while query.next():
+                    venta.append(int(query.value(0)))
+            venta.append(int(self.txtUnidades.text()))
+            venta.append(int(self.txtPrecio.text()))
+
+            self.registrarVenta(venta)
+
+
         except Exception as error:
             print("total: "+str(error))
+
+    def registrarVenta(self, venta):
+        try:
+            query = QtSql.QSqlQuery
+            query.prepare('insert into ventas (facturaId, servicioId, cantidad, precio) VALUES (:codFac, :codSer, :canti, :precio)')
+            query.bindValue(":codFac", int(venta[0]))
+            query.bindValue(":codSer", int(venta[1]))
+            query.bindValue(":canti", int(venta[2]))
+            query.bindValue(":precio", int(venta[3]))
+
+            if query.exec():
+                print('Línea de venta realizada')
+        except Exception as error:
+            print(error)
+
 
     def obtenerPrecio(self, servicio):
         try:
