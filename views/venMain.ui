@@ -2055,7 +2055,7 @@ color: rgb(255, 206, 8);</string>
        <string>Precio final</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="txtPrecioTotal">
       <property name="geometry">
        <rect>
         <x>750</x>

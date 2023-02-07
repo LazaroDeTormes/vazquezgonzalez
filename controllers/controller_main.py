@@ -115,7 +115,9 @@ class Main(QtWidgets.QMainWindow):
 
         self.cmbServicio.currentIndexChanged.connect(self.cargarPrecioVentas)   # === carga el precio del servicio === #
 
-        self.txtUnidades.editingFinished.connect(self.totalLineaVenta)
+        self.txtUnidades.editingFinished.connect(self.totalLineaVenta)          # === carga el total de la línea === #
+
+        self.ui.tabFac.clicked.connect(self.cargarVentas)
 
 
 
@@ -1382,13 +1384,66 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print(error)
 
+    def cargarVentas(self):
+        try:
+            tabla_ventas = self.ui.tabVentas
+            self.limpiaTabla(tabla_ventas)
+            self.ui.txtPrecioTotal.setText('')
+            self.cargaLineaVenta(0)
+            indice = 1
+            suma = 0
+            total = 0
+            query = QtSql.QSqlQuery()
+            query.prepare('select servicioId, precio, cantidad from ventas where facturaId = :numFac')
+            query.bindValue(':numFac', int(self.ui.txtNumFac.text()))
+            if query.exec():
+                while query.next():
+                    precio = str('{:.2f}'.format(round(query.value(1),2)))+' €'
+                    cantidad = str('{:.2f}'.format(round(query.value(2),2)))
+                    servicio = self.buscarServicio(round(query.value(0)))
+                    suma = str('{:.2f}'.format(round(query.value(1)*query.value(2), 2)))
+                    total = total + float(suma)
+                    tabla_ventas.setRowCount(indice+1)
+                    tabla_ventas.setItem(indice, 0, QtWidgets.QTableWidgetItem(str(servicio)))
+                    tabla_ventas.item(indice, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    tabla_ventas.setItem(indice, 1, QtWidgets.QTableWidgetItem(str(precio).replace('.',',')))
+                    tabla_ventas.item(indice, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    tabla_ventas.setItem(indice, 2, QtWidgets.QTableWidgetItem(str(cantidad).replace('.',',')))
+                    tabla_ventas.item(indice, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    tabla_ventas.setItem(indice, 3, QtWidgets.QTableWidgetItem(str(suma) + ' €'))
+                    tabla_ventas.item(indice, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    self.ui.txtPrecioTotal.setText(str('{:.2f}'.format(round(total)))+' €')
+                    indice = indice + 1
+        except Exception as error:
+            print(error)
+
+    def buscarServicio(self, num):
+        try:
+            servicio = ""
+            query = QtSql.QSqlQuery()
+            query.prepare('select servicio from servicios where id = :numSer')
+            query.bindValue(":numSer", int(num))
+            if query.exec():
+                while query.next():
+                    servicio = query.value(0)
+            return servicio
+        except Exception as error:
+            print(error)
+
+
     def alinearTablaServicios(self):
         try:
             header = self.ui.tabProd.horizontalHeader()
             for i in range(header.model().columnCount()):
                 header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.Stretch)
-                if i ==0:
+                if i == 0:
                     header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+        except Exception as error:
+            print(error)
+
+    def limpiaTabla(self, tabla):
+        try:
+            tabla.clear()
         except Exception as error:
             print(error)
 
