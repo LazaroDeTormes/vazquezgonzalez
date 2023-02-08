@@ -67,9 +67,11 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.btnHist.clicked.connect(self.abrirHistorico)                    # === abre el histórico === #
 
-        self.ui.btnFacturar.clicked.connect(self.facturar)
+        self.ui.btnFacturar.clicked.connect(self.facturar)                      # === añade una factura === #
 
-        self.ui.btnImprimirFac.clicked.connect(self.factura)
+        self.ui.btnImprimirFac.clicked.connect(self.factura)                    # === imprime la factura === #
+
+        self.ui.btnBorrarFac.clicked.connect(self.borrarFactura)                # === borra la factura === #
 
         '''
         Listado de eventos de cajas del formulario
@@ -105,7 +107,7 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.tabFac.clicked.connect(self.cargarFactura)                      # === carga los datos de facturas === #
 
-        self.cargaLineaVenta(indice)                                            # === carga las líneas de venta === #
+        self.ui.tabCli.clicked.connect(self.cargarClienteEnFactura)           # === carga los datos de facturas === #
 
         self.alinearTablaVentas()                                               # === alinea la tabla de ventas === #
 
@@ -113,11 +115,7 @@ class Main(QtWidgets.QMainWindow):
 
         self.alinearTablaServicios()                                            # === alinea la tabla de servicios === #
 
-        self.cmbServicio.currentIndexChanged.connect(self.cargarPrecioVentas)   # === carga el precio del servicio === #
-
-        self.txtUnidades.editingFinished.connect(self.totalLineaVenta)          # === carga el total de la línea === #
-
-        self.ui.tabFac.clicked.connect(self.cargarVentas)
+        self.ui.tabFac.clicked.connect(self.cargarVentas)                       # === carga las ventas del cliente === #
 
 
 
@@ -1204,6 +1202,21 @@ class Main(QtWidgets.QMainWindow):
 
                 indice = indice + 1
 
+    def cargarClienteEnFactura(self):
+        try:
+            fila = self.ui.tabCli.selectedItems()
+            row = [dato.text() for dato in fila]
+
+
+
+            self.ui.txtMatrFac.setText(str(row[1]))
+            self.ui.textBoxDniCliFac.setText(str(row[0]))
+            data = datetime.today()
+            self.ui.txtFechaCliFac.setText(str(data))
+
+        except Exception as error:
+            print(error)
+
     def cargarFactura(self):
 
         try:
@@ -1230,8 +1243,6 @@ class Main(QtWidgets.QMainWindow):
 
     def facturar(self):
         try:
-
-
             query = QtSql.QSqlQuery()
             query.prepare(
                 'insert into facturas (dniCli, matrAuto, fechaFac) values (:dni, :matr, :fecha)')
@@ -1257,19 +1268,43 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print(error)
 
+    def borrarFactura(self):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare(
+                'delete from facturas where id_factura = :num')
+            query.bindValue(":num", int(self.ui.txtNumFac.text()))
+
+            if query.exec():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle("Aviso")
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText("Factura impuesta")
+                msg.exec()
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle("Aviso")
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+
+            self.mostrarTabFacturas()
+        except Exception as error:
+            print(error)
+
     def cargaLineaVenta(self, index):
         try:
             self.cmbServicio = QtWidgets.QComboBox()
-            self.cmbServicio.setFixedSize(170, 30)
+            self.cmbServicio.setFixedSize(172, 30)
             self.txtUnidades = QtWidgets.QLineEdit()
-            self.txtUnidades.setFixedSize(124,30)
+            self.txtUnidades.setFixedSize(128,30)
             self.txtUnidades.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.txtPrecio = QtWidgets.QLineEdit()
-            self.txtPrecio.setFixedSize(124, 30)
+            self.txtPrecio.setFixedSize(128, 30)
             self.txtPrecio.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.txtPrecio.setReadOnly(True)
             self.txtTotal = QtWidgets.QLineEdit()
-            self.txtTotal.setFixedSize(124, 30)
+            self.txtTotal.setFixedSize(128, 30)
             self.txtTotal.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.txtTotal.setReadOnly(True)
             self.ui.tabVentas.setRowCount(index+1)
@@ -1278,6 +1313,8 @@ class Main(QtWidgets.QMainWindow):
             self.ui.tabVentas.setCellWidget(index, 2, self.txtUnidades)
             self.ui.tabVentas.setCellWidget(index, 3, self.txtTotal)
             self.cargaComboVentas()
+            self.cmbServicio.currentIndexChanged.connect(self.cargarPrecioVentas)
+            self.txtUnidades.editingFinished.connect(self.totalLineaVenta)
         except Exception as error:
             print('Hay un error en las líneas: '+str(error))
 
@@ -1331,6 +1368,7 @@ class Main(QtWidgets.QMainWindow):
             venta.append(float(self.txtPrecio.text().replace(',','.').replace('€','0')))
 
             self.registrarVenta(venta)
+            self.cargarVentas()
 
 
         except Exception as error:
