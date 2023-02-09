@@ -73,6 +73,10 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.btnBorrarFac.clicked.connect(self.borrarFactura)                # === borra la factura === #
 
+        self.ui.btnBusqFac.clicked.connect(self.buscarFacturaPorDNI)            # === busca la factura === #
+
+        self.ui.btnRecargaFac.clicked.connect(self.limpiarCasillasFactura)      # === limpia las casillas factura === #
+
         '''
         Listado de eventos de cajas del formulario
         '''
@@ -1468,22 +1472,57 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print(error)
 
-
-    def alinearTablaServicios(self):
+    def limpiarCasillasFactura(self):
         try:
-            header = self.ui.tabProd.horizontalHeader()
-            for i in range(header.model().columnCount()):
-                header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.Stretch)
-                if i == 0:
-                    header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+            self.ui.txtFechaCliFac.setText("")
+            self.ui.txtMatrFac.setText("")
+            self.ui.textBoxDniCliFac.setText("")
+            self.ui.txtNumFac.setText("")
+            self.limpiaTabla(self.ui.tabVentas)
         except Exception as error:
             print(error)
+    def buscarFacturaPorDNI(self):
+        try:
+            tabla = self.ui.tabFac
+            indice = 0
+            dni = self.ui.txtBucarFac.text()
+            tabla.clear()
+
+            query = QtSql.QSqlQuery()
+            if dni != "":
+                query.prepare("select id_factura, matrAuto from facturas where dniCli = :dni")
+                query.bindValue(":dni", str(dni))
+            else:
+                self.mostrarTabFacturas()
+
+            if query.exec():
+                while query.next():
+                    tabla.setRowCount(indice + 1)
+
+                    tabla.setItem(indice, 0, QtWidgets.QTableWidgetItem(str(query.value(0))))
+                    tabla.setItem(indice, 1, QtWidgets.QTableWidgetItem(str(query.value(1))))
+
+                    indice = indice + 1
+        except Exception as error:
+            print(error)
+
+
+    def alinearTablaServicios(self):
+            try:
+                header = self.ui.tabProd.horizontalHeader()
+                for i in range(header.model().columnCount()):
+                    header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.Stretch)
+                    if i == 0:
+                        header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+            except Exception as error:
+                print(error)
 
     def limpiaTabla(self, tabla):
         try:
             tabla.clear()
         except Exception as error:
             print(error)
+
 
     def factura(self):
         self.report = canvas.Canvas("informes/factura.pdf")
