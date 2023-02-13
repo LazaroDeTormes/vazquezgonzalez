@@ -2019,6 +2019,11 @@ color: rgb(255, 206, 8);</string>
       </attribute>
       <column>
        <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>CONCEPTO</string>
        </property>
       </column>
@@ -2035,6 +2040,11 @@ color: rgb(255, 206, 8);</string>
       <column>
        <property name="text">
         <string>SUBTOTAL</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string/>
        </property>
       </column>
      </widget>
