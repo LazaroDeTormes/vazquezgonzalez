@@ -1312,11 +1312,7 @@ class Main(QtWidgets.QMainWindow):
             self.txtTotal.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.txtTotal.setReadOnly(True)
             self.ui.tabVentas.setRowCount(index+1)
-            self.txtId = QtWidgets.QLineEdit()
-            self.txtId.setFixedSize(50, 30)
-            self.txtId.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            self.txtId.setReadOnly(True)
-            self.ui.tabVentas.setCellWidget(index, 0, self.txtId)
+
             self.ui.tabVentas.setCellWidget(index,1, self.cmbServicio)
             self.ui.tabVentas.setCellWidget(index,2, self.txtPrecio)
             self.ui.tabVentas.setCellWidget(index,3, self.txtUnidades)
@@ -1324,6 +1320,7 @@ class Main(QtWidgets.QMainWindow):
             self.cargaComboVentas()
             self.cmbServicio.currentIndexChanged.connect(self.cargarPrecioVentas)
             self.txtUnidades.editingFinished.connect(self.totalLineaVenta)
+            self.ui.tabVentas.resizeColumnsToContents()
         except Exception as error:
             print('Hay un error en las líneas: '+str(error))
 
@@ -1418,6 +1415,7 @@ class Main(QtWidgets.QMainWindow):
                 header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.Stretch)
                 if i ==0:
                     header.setSectionResizeMode(i,QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
         except Exception as error:
             print(error)
 
@@ -1465,9 +1463,10 @@ class Main(QtWidgets.QMainWindow):
                     tabla_ventas.setItem(indice, 4, QtWidgets.QTableWidgetItem(str(suma) + ' €'))
                     tabla_ventas.item(indice, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                     tabla_ventas.setCellWidget(indice, 5, self.btnBorrarLinea)
-                    tabla_ventas.resizeColumnsToContents()
+
                     self.ui.txtPrecioTotal.setText(str('{:.2f}'.format(round(total)))+' €')
                     indice = indice + 1
+                    tabla_ventas.resizeColumnsToContents()
         except Exception as error:
             print("cargar línea: "+str(error))
 
@@ -1518,6 +1517,15 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print(error)
 
+    def borrarLineaVenta(self):
+        try:
+
+            query = QtSql.QSqlQuery()
+            query.prepare('delete from ventas where idVentas = :id')
+            query.bindValue(':id', int())
+
+        except Exception as error:
+            print(error)
 
     def alinearTablaServicios(self):
             try:
@@ -1531,7 +1539,7 @@ class Main(QtWidgets.QMainWindow):
 
     def limpiaTabla(self, tabla):
         try:
-            tabla.clear()
+            tabla.clearContents()
         except Exception as error:
             print(error)
 
