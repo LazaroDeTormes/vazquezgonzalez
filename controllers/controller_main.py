@@ -151,6 +151,11 @@ class Main(QtWidgets.QMainWindow):
     '''
 
     def salir(self):
+        """
+
+        Sale del programa.
+
+        """
         try:
             self.avisosalir.show()
             if self.avisosalir.exec():
@@ -162,6 +167,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def abrirCalendario(self):
+        """
+
+        Abre el calendario.
+
+        """
         try:
             self.dlgcalendar.show()
             self.dlgcalendar.ui.calendario.clicked.connect(self.cargarFecha)
@@ -169,6 +179,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def letrasCapital(self):
+        """
+
+        Pone la primera letra en mayúscula de los datos del cliente.
+
+        """
         try:
             self.ui.txtNombreCli.setText(self.ui.txtNombreCli.text().title())
             self.ui.txtDniCli.setText(self.ui.txtDniCli.text().title())
@@ -180,6 +195,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def restructuracionTablaCocheCli(self):
+        """
+
+        Reestructura el tamaño de la tabla de coches.
+
+        """
         try:
             header = self.ui.tabCli.horizontalHeader()
             for i in range(5):
@@ -191,6 +211,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def creaBackup(self):
+        """
+
+        Crea un Backup.
+
+        """
         try:
             pantalla = QtWidgets.QFileDialog()
 
@@ -216,6 +241,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def restauraBackup(self):
+        """
+
+        Restaura un Backup.
+
+        """
         try:
             pantalla = QtWidgets.QFileDialog()
 
@@ -243,6 +273,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def exportarDatos(self):
+        """
+
+        Exporta los datos.
+
+        """
         try:
 
             ventana = self.avisoDatos
@@ -257,6 +292,7 @@ class Main(QtWidgets.QMainWindow):
     def validarDNI(self, dni):
         '''
         Módulo para la validación de DNI
+
         :return: boolean
         '''
 
@@ -277,6 +313,11 @@ class Main(QtWidgets.QMainWindow):
             print("Error validez DNI: ", error)
 
     def mostrarValidezDNI(self):
+        """
+
+        Muestra al lado de la caja del dni si éste es válido o no.
+
+        """
         try:
             dniCaja = self.ui.txtDniCli
             dni = dniCaja.text()
@@ -298,6 +339,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def selMotor(self):
+        """
+
+        Selecciona el motor y pasa la selección a la función cheMotor.
+
+        """
         try:
             self.motor = (self.ui.rbtGas, self.ui.rbtDie, self.ui.rbtHib, self.ui.rbtEle)
             for i in self.motor:
@@ -306,6 +352,12 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def cheMotor(self):
+        """
+
+        Iguala cada selección a un motor y lo devuelve.
+
+        :return: motor
+        """
         try:
             if self.ui.rbtGas.isChecked():
                 motor = "Gasolina"
@@ -322,6 +374,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def guardarCli(self):
+        """
+
+        Guarda un cliente en la base de datos.
+
+        """
         try:
             desplePro = self.ui.cmbProCli
             despleMun = self.ui.cmbMunCli
@@ -372,6 +429,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def limpiaCli(self):
+        """
+
+        Limpia las cajas de información del cliente.
+
+        """
         try:
             botonesPago = self.ui.btnGrupoPagos
             despleMun = self.ui.cmbMunCli
@@ -397,7 +459,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def cargaCliente(self):
+        """
 
+        Carga la información de un cliente de la base de datos.
+
+        """
         try:
             despleMun = self.ui.cmbMunCli
             desplePro = self.ui.cmbProCli
@@ -443,7 +509,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def cargarFecha(self, qDate):
+        """
 
+        Carga la fecha seleccionada en el calendario.
+
+        """
         try:
 
             calendario = self.dlgcalendar
@@ -460,7 +530,12 @@ class Main(QtWidgets.QMainWindow):
             print("Error de calendario: " + str(error))
 
     def conexion(self):
+        """
 
+        Crea la conexión con la base de datos.
+
+        :return: booleano
+        """
         filedb = 'bases/bbdd.sqlite'
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName(filedb)
@@ -476,6 +551,11 @@ class Main(QtWidgets.QMainWindow):
             return True
 
     def cargarProvincia(self):
+        """
+
+        Carga las provincias en el desplegable.
+
+        """
         try:
             desplePro = self.ui.cmbProCli
 
@@ -491,6 +571,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def cargarMunicipio(self):
+        """
+
+        Carga los municipios en el desplegable.
+
+        """
         try:
             despleMun = self.ui.cmbMunCli
             desplePro = self.ui.cmbProCli
@@ -514,6 +599,13 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def altaCli(self, newcli, newcar):
+        """
+
+        Da de alta a un cliente.
+
+        :param newcli: El nuevo cliente.
+        :param newcar: El nuevo coche.
+        """
         try:
             query0 = QtSql.QSqlQuery()
             query0.prepare("")
@@ -561,6 +653,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def mostrarTabCocheCli(self):
+        """
+
+        Carga los datos en la tabla de coches.
+
+        """
         try:
             tabla = self.ui.tabCli
 
@@ -589,6 +686,13 @@ class Main(QtWidgets.QMainWindow):
             print("Hola " + str(error))
 
     def consultaDni(self, dni):
+        """
+
+        Realiza una consulta por dni.
+
+        :param dni: el dni.
+        :return: una lista con la información.
+        """
         try:
             print(str(dni))
             registro = []
@@ -609,6 +713,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def eliminarCliente(self):
+        """
+
+        Borra a un cliente de la base de datos.
+
+        """
         try:
 
             query3 = QtSql.QSqlQuery()
@@ -661,6 +770,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def importarDatos(self):
+        """
+
+        Importa los datos.
+
+        """
         try:
             filename = QtWidgets.QFileDialog.getOpenFileName(None, 'Importar datos', '', '*.xls;;All Files (*)')
             if DialogoDatos.accept and filename != '':
@@ -695,7 +809,11 @@ class Main(QtWidgets.QMainWindow):
             print('Error importar datos: ', error)
 
     def modifCliente(self):
+        """
 
+        Modifica un cliente de la base de datos llamando al método que hace las consultas.
+
+        """
         try:
             modcar = []
             modclient = []
@@ -727,6 +845,13 @@ class Main(QtWidgets.QMainWindow):
             print('Error cambiando cliente', error)
 
     def modificarCliente(self, modClient, modCar):
+        """
+
+        Realiza las consultas para modificar el cliente.
+
+        :param modClient: cliente a modificar.
+        :param modCar: coche a modificar.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -765,6 +890,11 @@ class Main(QtWidgets.QMainWindow):
             print('Error modificando', error)
 
     def abrirHistorico(self):
+        """
+
+        Abre la ventana del histórico.
+
+        """
         try:
             self.dlgHistorico.show()
 
@@ -772,6 +902,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def mostrarTabProductos(self):
+        """
+
+        Carga los productos en la tabla.
+
+        """
         try:
             tabla = self.ui.tabProd
 
@@ -795,6 +930,11 @@ class Main(QtWidgets.QMainWindow):
             print("Hola " + str(error))
 
     def eliminarProducto(self):
+        """
+
+        Elimina un producto de la base de datos.
+
+        """
         try:
 
 
@@ -827,7 +967,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def cargaProducto(self):
+        """
 
+        Carga los datos de un producto de la base de datos en las casillas de información.
+
+        """
         try:
 
 
@@ -846,14 +990,15 @@ class Main(QtWidgets.QMainWindow):
 
             self.ui.txtPrecio.setText(row[2])
 
-
-
-
-
         except Exception as error:
             print(error)
 
     def modificarProducto(self):
+        """
+
+        Modifica un producto de la base de datos.
+
+        """
         try:
 
             modProd = []
@@ -887,6 +1032,11 @@ class Main(QtWidgets.QMainWindow):
             print('Error modificando', error)
 
     def creaProd(self):
+        """
+
+        Crea un producto en la base de datos.
+
+        """
         try:
 
 
@@ -924,7 +1074,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def exportaProd(self):
+        """
 
+        Exporta un producto de la base de datos.
+
+        """
         fecha = datetime.datetime.today()
         fecha = fecha.strftime('%Y.%m.%d.%H.%M.%S')
         file = (str(fecha) + '_Servicios.xls')
@@ -958,7 +1112,11 @@ class Main(QtWidgets.QMainWindow):
         msg.exec()
 
     def crearInformeCli(self):
+            """
 
+            Crea el informe del cliente.
+
+            """
             try:
                 self.titulo = 'LISTA DE CLIENTES'
 
@@ -981,14 +1139,15 @@ class Main(QtWidgets.QMainWindow):
                 self.report.save()
 
 
-
-
-                #rootPath = '.\\informes'
-                #os.startfile('%s\%s' % (rootPath, 'listadoClientes.pdf'))
             except Exception as error:
                 print('Error informes estado clientes: '+ str(error))
             
     def crearInformeAuto(self):
+        """
+
+        Crea el informe del coche.
+
+        """
         try:
             self.titulo = 'LISTA DE VEHÍCULOS'
             dir, file = QtWidgets.QFileDialog().getSaveFileName(None, 'Guardar Datos', "Listado", '.pdf')
@@ -1012,6 +1171,11 @@ class Main(QtWidgets.QMainWindow):
             print('Error informes estado clientes: ' + str(error))
 
     def pieInforme(self):
+        """
+
+        Crea el pie de los informes.
+
+        """
         try:
             self.report.line(50,50,525,50)
             fecha = datetime.datetime.today()
@@ -1024,6 +1188,11 @@ class Main(QtWidgets.QMainWindow):
             print('Error pie de informe de cualquier tipo: '+str(error))
 
     def topInforme(self):
+        """
+
+        Crea la cabecera de los informes.
+
+        """
         try:
 
             logo = '.\img\logo.jpg'
@@ -1047,6 +1216,11 @@ class Main(QtWidgets.QMainWindow):
             print('Error de cabecera: '+str(error))
 
     def cuerpoInformeCliente(self):
+        """
+
+        Crea el cuerpo del informe del cliente.
+
+        """
         items = ['DNI', 'Nombre', 'Dirección', 'Provincia', 'Municipio']
 
         query = QtSql.QSqlQuery()
@@ -1094,6 +1268,11 @@ class Main(QtWidgets.QMainWindow):
                 j = j - 20
 
     def cuerpoInformeCoche(self):
+        """
+
+        Crea el cuerpo del informe del coche.
+
+        """
         items = ['DNI', 'Matrícula', 'Marca', 'Modelo', 'Motor']
 
         query = QtSql.QSqlQuery()
@@ -1190,6 +1369,11 @@ class Main(QtWidgets.QMainWindow):
                 j = j - 20
 
     def mostrarTabFacturas(self):
+        """
+
+        Carga en la tabla de facturas las facturas de la base de datos.
+
+        """
         tabla = self.ui.tabFac
         indice = 0
 
@@ -1207,6 +1391,11 @@ class Main(QtWidgets.QMainWindow):
                 indice = indice + 1
 
     def cargarClienteEnFactura(self):
+        """
+
+        Carga un cliente en una factura.
+
+        """
         try:
             fila = self.ui.tabCli.selectedItems()
             row = [dato.text() for dato in fila]
@@ -1222,7 +1411,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def cargarFactura(self):
+        """
 
+        Carga los datos de una factura en las casillas de información.
+
+        """
         try:
             fila = self.ui.tabFac.selectedItems()
             row = [dato.text() for dato in fila]
@@ -1246,6 +1439,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def facturar(self):
+        """
+
+        Crea una nueva factura en la base de datos.
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -1273,6 +1471,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def borrarFactura(self):
+        """
+
+        Borra una factura de la base de datos.
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare(
@@ -1297,6 +1500,12 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def cargaLineaVenta(self, index):
+        """
+
+        Carga las líneas de venta en la tabla de facturas.
+
+        :param index: índice estático.
+        """
         try:
             self.cmbServicio = QtWidgets.QComboBox()
             self.cmbServicio.setFixedSize(172, 30)
@@ -1325,6 +1534,11 @@ class Main(QtWidgets.QMainWindow):
             print('Hay un error en las líneas: '+str(error))
 
     def cargaComboVentas(self):
+        """
+
+        Carga los productos en el desplegable de las líneas de ventas.
+
+        """
         try:
             self.cmbServicio.clear()
             query = QtSql.QSqlQuery()
@@ -1336,6 +1550,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def cargarPrecioVentas(self):
+        """
+
+        Carga el precio de cada producto en la tabla de facturas.
+
+        """
         try:
             tabla = self.ui.tabVentas
             row = self.ui.tabVentas.currentRow()
@@ -1350,6 +1569,11 @@ class Main(QtWidgets.QMainWindow):
             print("precio: "+str(error))
 
     def totalLineaVenta(self):
+        """
+
+        Carga el precio total a pagar por los productos de un mismo tipo.
+
+        """
         try:
             row = self.ui.tabVentas.currentRow()
             precio = self.txtPrecio.text().replace(',', '.')
@@ -1381,6 +1605,12 @@ class Main(QtWidgets.QMainWindow):
             print("total: "+str(error))
 
     def registrarVenta(self, venta):
+        """
+
+        Registra cada venta en la base de datos.
+
+        :param venta: lista con los datos de la venta.
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare('insert into ventas (facturaId, servicioId, cantidad, precio) VALUES (:codFac, :codSer, :canti, :precio)')
@@ -1396,6 +1626,13 @@ class Main(QtWidgets.QMainWindow):
 
 
     def obtenerPrecio(self, servicio):
+        """
+
+        Obtiene el precio de cada servicio.
+
+        :param servicio:
+        :return:
+        """
         try:
             precio = ""
             query = QtSql.QSqlQuery()
@@ -1409,6 +1646,11 @@ class Main(QtWidgets.QMainWindow):
             print('obtención de precio: '+str(error))
 
     def alinearTablaVentas(self):
+        """
+
+        Ajusta el tamaño de la tabla de ventas.
+
+        """
         try:
             header = self.ui.tabVentas.horizontalHeader()
             for i in range(header.model().columnCount()):
@@ -1420,6 +1662,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def alinearTablaFacturas(self):
+        """
+
+        Ajusta el tamaño de la tabla de facturas.
+
+        """
         try:
             header = self.ui.tabFac.horizontalHeader()
             for i in range(header.model().columnCount()):
@@ -1430,6 +1677,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def cargarVentas(self):
+        """
+
+        Carga las ventas en cada factura.
+
+        """
         try:
             tabla_ventas = self.ui.tabVentas
             self.limpiaTabla(tabla_ventas)
@@ -1471,6 +1723,13 @@ class Main(QtWidgets.QMainWindow):
             print("cargar línea: "+str(error))
 
     def buscarServicio(self, num):
+        """
+
+        Busca los servicios.
+
+        :param num: id del servicio
+        :return: devuelve el servicio
+        """
         try:
             servicio = ""
             query = QtSql.QSqlQuery()
@@ -1484,6 +1743,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def limpiarCasillasFactura(self):
+        """
+
+        Limpia las casillas de información de las facturas.
+
+        """
         try:
             self.ui.txtFechaCliFac.setText("")
             self.ui.txtMatrFac.setText("")
@@ -1493,6 +1757,11 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print(error)
     def buscarFacturaPorDNI(self):
+        """
+
+        Busca las facturas por el dni.
+
+        """
         try:
             tabla = self.ui.tabFac
             indice = 0
@@ -1518,6 +1787,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def borrarLineaVenta(self):
+        """
+
+        Elimina una línea de venta.
+
+        """
         try:
 
             query = QtSql.QSqlQuery()
@@ -1528,6 +1802,11 @@ class Main(QtWidgets.QMainWindow):
             print(error)
 
     def alinearTablaServicios(self):
+            """
+
+            Ajusta el tamaño de la tabla de servicios.
+
+            """
             try:
                 header = self.ui.tabProd.horizontalHeader()
                 for i in range(header.model().columnCount()):
@@ -1538,6 +1817,12 @@ class Main(QtWidgets.QMainWindow):
                 print(error)
 
     def limpiaTabla(self, tabla):
+        """
+
+        Limpia la tabla objetivo.
+
+        :param tabla: tabla que se desea limpiar.
+        """
         try:
             tabla.clearContents()
         except Exception as error:
@@ -1545,6 +1830,11 @@ class Main(QtWidgets.QMainWindow):
 
 
     def factura(self):
+        """
+
+        Imprime una factura en pdf.
+
+        """
         self.report = canvas.Canvas("informes/factura.pdf")
         titulo = "FACTURA"
         self.pieInforme()
