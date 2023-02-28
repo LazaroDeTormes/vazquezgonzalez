@@ -77,6 +77,8 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.btnRecargaFac.clicked.connect(self.limpiarCasillasFactura)      # === limpia las casillas factura === #
 
+
+
         '''
         Listado de eventos de cajas del formulario
         '''
@@ -1486,7 +1488,7 @@ class Main(QtWidgets.QMainWindow):
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle("Aviso")
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText("Factura impuesta")
+                msg.setText("Factura borrada")
                 msg.exec()
             else:
                 msg = QtWidgets.QMessageBox()
@@ -1701,8 +1703,9 @@ class Main(QtWidgets.QMainWindow):
                     servicio = self.buscarServicio(round(query.value(1)))
                     suma = str('{:.2f}'.format(round(query.value(2)*query.value(3), 2)))
                     total = total + float(suma)
-                    self.btnBorrarLinea = QtWidgets.QToolButton()
+                    self.btnBorrarLinea = QtWidgets.QPushButton()
                     self.btnBorrarLinea.setFixedSize(30, 30)
+                    self.btnBorrarLinea.clicked.connect(self.borrarLineaVenta)
                     tabla_ventas.setRowCount(indice+1)
                     tabla_ventas.setItem(indice, 0, QtWidgets.QTableWidgetItem(str(id)))
                     tabla_ventas.item(indice, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -1719,8 +1722,37 @@ class Main(QtWidgets.QMainWindow):
                     self.ui.txtPrecioTotal.setText(str('{:.2f}'.format(round(total)))+' €')
                     indice = indice + 1
                     tabla_ventas.resizeColumnsToContents()
+
+
+
         except Exception as error:
             print("cargar línea: "+str(error))
+
+    def borrarLineaVenta(self,indice):
+        """
+
+        Elimina una línea de venta.
+
+        """
+        try:
+            fila = self.ui.tabVentas.selectedItems()
+            id = fila[0]
+            print(id)
+            query = QtSql.QSqlQuery()
+            query.prepare('delete from ventas where idVentas = :id')
+            query.bindValue(":id", str(id))
+
+            if query.exec():
+
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle("Aviso")
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText("Factura borrada")
+                msg.exec()
+                self.cargarVentas()
+
+        except Exception as error:
+            print("Error en borrado de ventas: "+str(error))
 
     def buscarServicio(self, num):
         """
@@ -1786,20 +1818,7 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print(error)
 
-    def borrarLineaVenta(self):
-        """
 
-        Elimina una línea de venta.
-
-        """
-        try:
-
-            query = QtSql.QSqlQuery()
-            query.prepare('delete from ventas where idVentas = :id')
-            query.bindValue(':id', int())
-
-        except Exception as error:
-            print(error)
 
     def alinearTablaServicios(self):
             """

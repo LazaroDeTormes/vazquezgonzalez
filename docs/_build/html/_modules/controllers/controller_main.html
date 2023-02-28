@@ -325,6 +325,7 @@
 <div class="viewcode-block" id="Main.validarDNI"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.validarDNI">[documentos]</a>    <span class="k">def</span> <span class="nf">validarDNI</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dni</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Módulo para la validación de DNI</span>
+
 <span class="sd">        :return: boolean</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
@@ -387,6 +388,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Iguala cada selección a un motor y lo devuelve.</span>
+
 <span class="sd">        :return: motor</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -405,6 +407,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.guardarCli"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.guardarCli">[documentos]</a>    <span class="k">def</span> <span class="nf">guardarCli</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Guarda un cliente en la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">desplePro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProCli</span>
             <span class="n">despleMun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMunCli</span>
@@ -455,6 +462,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.limpiaCli"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.limpiaCli">[documentos]</a>    <span class="k">def</span> <span class="nf">limpiaCli</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Limpia las cajas de información del cliente.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">botonesPago</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnGrupoPagos</span>
             <span class="n">despleMun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMunCli</span>
@@ -480,7 +492,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.cargaCliente"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargaCliente">[documentos]</a>    <span class="k">def</span> <span class="nf">cargaCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">        Carga la información de un cliente de la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">despleMun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMunCli</span>
             <span class="n">desplePro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProCli</span>
@@ -526,7 +542,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.cargarFecha"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargarFecha">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarFecha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qDate</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">        Carga la fecha seleccionada en el calendario.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
 
             <span class="n">calendario</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlgcalendar</span>
@@ -543,7 +563,12 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error de calendario: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.conexion"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.conexion">[documentos]</a>    <span class="k">def</span> <span class="nf">conexion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">        Crea la conexión con la base de datos.</span>
+
+<span class="sd">        :return: booleano</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">filedb</span> <span class="o">=</span> <span class="s1">&#39;bases/bbdd.sqlite&#39;</span>
         <span class="n">db</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlDatabase</span><span class="o">.</span><span class="n">addDatabase</span><span class="p">(</span><span class="s1">&#39;QSQLITE&#39;</span><span class="p">)</span>
         <span class="n">db</span><span class="o">.</span><span class="n">setDatabaseName</span><span class="p">(</span><span class="n">filedb</span><span class="p">)</span>
@@ -559,6 +584,11 @@
             <span class="k">return</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="Main.cargarProvincia"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargarProvincia">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarProvincia</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga las provincias en el desplegable.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">desplePro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProCli</span>
 
@@ -574,6 +604,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.cargarMunicipio"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargarMunicipio">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarMunicipio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga los municipios en el desplegable.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">despleMun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMunCli</span>
             <span class="n">desplePro</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProCli</span>
@@ -597,6 +632,13 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.altaCli"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.altaCli">[documentos]</a>    <span class="k">def</span> <span class="nf">altaCli</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newcli</span><span class="p">,</span> <span class="n">newcar</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Da de alta a un cliente.</span>
+
+<span class="sd">        :param newcli: El nuevo cliente.</span>
+<span class="sd">        :param newcar: El nuevo coche.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query0</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
             <span class="n">query0</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -644,6 +686,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.mostrarTabCocheCli"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.mostrarTabCocheCli">[documentos]</a>    <span class="k">def</span> <span class="nf">mostrarTabCocheCli</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga los datos en la tabla de coches.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tabla</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabCli</span>
 
@@ -672,6 +719,13 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hola &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.consultaDni"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.consultaDni">[documentos]</a>    <span class="k">def</span> <span class="nf">consultaDni</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Realiza una consulta por dni.</span>
+
+<span class="sd">        :param dni: el dni.</span>
+<span class="sd">        :return: una lista con la información.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
             <span class="n">registro</span> <span class="o">=</span> <span class="p">[]</span>
@@ -692,6 +746,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.eliminarCliente"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.eliminarCliente">[documentos]</a>    <span class="k">def</span> <span class="nf">eliminarCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Borra a un cliente de la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
 
             <span class="n">query3</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
@@ -744,6 +803,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.importarDatos"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.importarDatos">[documentos]</a>    <span class="k">def</span> <span class="nf">importarDatos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Importa los datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Importar datos&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;*.xls;;All Files (*)&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">DialogoDatos</span><span class="o">.</span><span class="n">accept</span> <span class="ow">and</span> <span class="n">filename</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -778,7 +842,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error importar datos: &#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.modifCliente"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.modifCliente">[documentos]</a>    <span class="k">def</span> <span class="nf">modifCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">        Modifica un cliente de la base de datos llamando al método que hace las consultas.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">modcar</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">modclient</span> <span class="o">=</span> <span class="p">[]</span>
@@ -810,6 +878,13 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error cambiando cliente&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.modificarCliente"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.modificarCliente">[documentos]</a>    <span class="k">def</span> <span class="nf">modificarCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modClient</span><span class="p">,</span> <span class="n">modCar</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Realiza las consultas para modificar el cliente.</span>
+
+<span class="sd">        :param modClient: cliente a modificar.</span>
+<span class="sd">        :param modCar: coche a modificar.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
             <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
@@ -848,6 +923,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error modificando&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.abrirHistorico"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.abrirHistorico">[documentos]</a>    <span class="k">def</span> <span class="nf">abrirHistorico</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Abre la ventana del histórico.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">dlgHistorico</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -855,6 +935,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.mostrarTabProductos"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.mostrarTabProductos">[documentos]</a>    <span class="k">def</span> <span class="nf">mostrarTabProductos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga los productos en la tabla.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tabla</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabProd</span>
 
@@ -878,6 +963,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hola &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.eliminarProducto"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.eliminarProducto">[documentos]</a>    <span class="k">def</span> <span class="nf">eliminarProducto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Elimina un producto de la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
 
 
@@ -910,7 +1000,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.cargaProducto"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargaProducto">[documentos]</a>    <span class="k">def</span> <span class="nf">cargaProducto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">        Carga los datos de un producto de la base de datos en las casillas de información.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
 
 
@@ -929,14 +1023,15 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtPrecio</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 
-
-
-
-
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.modificarProducto"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.modificarProducto">[documentos]</a>    <span class="k">def</span> <span class="nf">modificarProducto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Modifica un producto de la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
 
             <span class="n">modProd</span> <span class="o">=</span> <span class="p">[]</span>
@@ -970,6 +1065,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error modificando&#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.creaProd"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.creaProd">[documentos]</a>    <span class="k">def</span> <span class="nf">creaProd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Crea un producto en la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
 
 
@@ -1007,7 +1107,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.exportaProd"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.exportaProd">[documentos]</a>    <span class="k">def</span> <span class="nf">exportaProd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">        Exporta un producto de la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
         <span class="n">fecha</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y.%m.</span><span class="si">%d</span><span class="s1">.%H.%M.%S&#39;</span><span class="p">)</span>
         <span class="n">file</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fecha</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_Servicios.xls&#39;</span><span class="p">)</span>
@@ -1041,7 +1145,11 @@
         <span class="n">msg</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Main.crearInformeCli"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.crearInformeCli">[documentos]</a>    <span class="k">def</span> <span class="nf">crearInformeCli</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">            Crea el informe del cliente.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">titulo</span> <span class="o">=</span> <span class="s1">&#39;LISTA DE CLIENTES&#39;</span>
 
@@ -1064,14 +1172,15 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
 
-
-
-                <span class="c1">#rootPath = &#39;.\\informes&#39;</span>
-                <span class="c1">#os.startfile(&#39;%s\%s&#39; % (rootPath, &#39;listadoClientes.pdf&#39;))</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error informes estado clientes: &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
             
 <div class="viewcode-block" id="Main.crearInformeAuto"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.crearInformeAuto">[documentos]</a>    <span class="k">def</span> <span class="nf">crearInformeAuto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Crea el informe del coche.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">titulo</span> <span class="o">=</span> <span class="s1">&#39;LISTA DE VEHÍCULOS&#39;</span>
             <span class="nb">dir</span><span class="p">,</span> <span class="n">file</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="p">()</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Guardar Datos&#39;</span><span class="p">,</span> <span class="s2">&quot;Listado&quot;</span><span class="p">,</span> <span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
@@ -1095,6 +1204,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error informes estado clientes: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.pieInforme"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.pieInforme">[documentos]</a>    <span class="k">def</span> <span class="nf">pieInforme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Crea el pie de los informes.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">525</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
             <span class="n">fecha</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
@@ -1107,6 +1221,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error pie de informe de cualquier tipo: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.topInforme"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.topInforme">[documentos]</a>    <span class="k">def</span> <span class="nf">topInforme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Crea la cabecera de los informes.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
 
             <span class="n">logo</span> <span class="o">=</span> <span class="s1">&#39;.\img\logo.jpg&#39;</span>
@@ -1130,6 +1249,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error de cabecera: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.cuerpoInformeCliente"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cuerpoInformeCliente">[documentos]</a>    <span class="k">def</span> <span class="nf">cuerpoInformeCliente</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Crea el cuerpo del informe del cliente.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DNI&#39;</span><span class="p">,</span> <span class="s1">&#39;Nombre&#39;</span><span class="p">,</span> <span class="s1">&#39;Dirección&#39;</span><span class="p">,</span> <span class="s1">&#39;Provincia&#39;</span><span class="p">,</span> <span class="s1">&#39;Municipio&#39;</span><span class="p">]</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
@@ -1177,6 +1301,11 @@
                 <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">20</span></div>
 
 <div class="viewcode-block" id="Main.cuerpoInformeCoche"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cuerpoInformeCoche">[documentos]</a>    <span class="k">def</span> <span class="nf">cuerpoInformeCoche</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Crea el cuerpo del informe del coche.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DNI&#39;</span><span class="p">,</span> <span class="s1">&#39;Matrícula&#39;</span><span class="p">,</span> <span class="s1">&#39;Marca&#39;</span><span class="p">,</span> <span class="s1">&#39;Modelo&#39;</span><span class="p">,</span> <span class="s1">&#39;Motor&#39;</span><span class="p">]</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
@@ -1273,6 +1402,11 @@
                 <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">20</span></div>
 
 <div class="viewcode-block" id="Main.mostrarTabFacturas"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.mostrarTabFacturas">[documentos]</a>    <span class="k">def</span> <span class="nf">mostrarTabFacturas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga en la tabla de facturas las facturas de la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">tabla</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFac</span>
         <span class="n">indice</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -1290,6 +1424,11 @@
                 <span class="n">indice</span> <span class="o">=</span> <span class="n">indice</span> <span class="o">+</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="Main.cargarClienteEnFactura"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargarClienteEnFactura">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarClienteEnFactura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga un cliente en una factura.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">fila</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabCli</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
             <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span>
@@ -1305,7 +1444,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.cargarFactura"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargarFactura">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarFactura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">        Carga los datos de una factura en las casillas de información.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">fila</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFac</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
             <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span>
@@ -1329,6 +1472,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.facturar"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.facturar">[documentos]</a>    <span class="k">def</span> <span class="nf">facturar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Crea una nueva factura en la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
             <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
@@ -1356,6 +1504,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.borrarFactura"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.borrarFactura">[documentos]</a>    <span class="k">def</span> <span class="nf">borrarFactura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Borra una factura de la base de datos.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
             <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
@@ -1380,6 +1533,12 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.cargaLineaVenta"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargaLineaVenta">[documentos]</a>    <span class="k">def</span> <span class="nf">cargaLineaVenta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga las líneas de venta en la tabla de facturas.</span>
+
+<span class="sd">        :param index: índice estático.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cmbServicio</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QComboBox</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cmbServicio</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">172</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
@@ -1408,6 +1567,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hay un error en las líneas: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.cargaComboVentas"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargaComboVentas">[documentos]</a>    <span class="k">def</span> <span class="nf">cargaComboVentas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga los productos en el desplegable de las líneas de ventas.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cmbServicio</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
@@ -1419,6 +1583,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.cargarPrecioVentas"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargarPrecioVentas">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarPrecioVentas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga el precio de cada producto en la tabla de facturas.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tabla</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabVentas</span>
             <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabVentas</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
@@ -1433,6 +1602,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;precio: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.totalLineaVenta"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.totalLineaVenta">[documentos]</a>    <span class="k">def</span> <span class="nf">totalLineaVenta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga el precio total a pagar por los productos de un mismo tipo.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabVentas</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()</span>
             <span class="n">precio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">txtPrecio</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
@@ -1464,6 +1638,12 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;total: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.registrarVenta"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.registrarVenta">[documentos]</a>    <span class="k">def</span> <span class="nf">registrarVenta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">venta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Registra cada venta en la base de datos.</span>
+
+<span class="sd">        :param venta: lista con los datos de la venta.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
             <span class="n">query</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="s1">&#39;insert into ventas (facturaId, servicioId, cantidad, precio) VALUES (:codFac, :codSer, :canti, :precio)&#39;</span><span class="p">)</span>
@@ -1479,6 +1659,13 @@
 
 
 <div class="viewcode-block" id="Main.obtenerPrecio"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.obtenerPrecio">[documentos]</a>    <span class="k">def</span> <span class="nf">obtenerPrecio</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">servicio</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Obtiene el precio de cada servicio.</span>
+
+<span class="sd">        :param servicio:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">precio</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
@@ -1492,6 +1679,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;obtención de precio: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.alinearTablaVentas"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.alinearTablaVentas">[documentos]</a>    <span class="k">def</span> <span class="nf">alinearTablaVentas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Ajusta el tamaño de la tabla de ventas.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabVentas</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()):</span>
@@ -1503,6 +1695,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.alinearTablaFacturas"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.alinearTablaFacturas">[documentos]</a>    <span class="k">def</span> <span class="nf">alinearTablaFacturas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Ajusta el tamaño de la tabla de facturas.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFac</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()):</span>
@@ -1513,6 +1710,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.cargarVentas"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.cargarVentas">[documentos]</a>    <span class="k">def</span> <span class="nf">cargarVentas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Carga las ventas en cada factura.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tabla_ventas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabVentas</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">limpiaTabla</span><span class="p">(</span><span class="n">tabla_ventas</span><span class="p">)</span>
@@ -1554,6 +1756,13 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cargar línea: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Main.buscarServicio"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.buscarServicio">[documentos]</a>    <span class="k">def</span> <span class="nf">buscarServicio</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Busca los servicios.</span>
+
+<span class="sd">        :param num: id del servicio</span>
+<span class="sd">        :return: devuelve el servicio</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">servicio</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
@@ -1567,6 +1776,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.limpiarCasillasFactura"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.limpiarCasillasFactura">[documentos]</a>    <span class="k">def</span> <span class="nf">limpiarCasillasFactura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Limpia las casillas de información de las facturas.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtFechaCliFac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMatrFac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -1576,6 +1790,11 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 <div class="viewcode-block" id="Main.buscarFacturaPorDNI"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.buscarFacturaPorDNI">[documentos]</a>    <span class="k">def</span> <span class="nf">buscarFacturaPorDNI</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Busca las facturas por el dni.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tabla</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabFac</span>
             <span class="n">indice</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1601,6 +1820,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.borrarLineaVenta"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.borrarLineaVenta">[documentos]</a>    <span class="k">def</span> <span class="nf">borrarLineaVenta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Elimina una línea de venta.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
 
             <span class="n">query</span> <span class="o">=</span> <span class="n">QtSql</span><span class="o">.</span><span class="n">QSqlQuery</span><span class="p">()</span>
@@ -1611,6 +1835,11 @@
             <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.alinearTablaServicios"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.alinearTablaServicios">[documentos]</a>    <span class="k">def</span> <span class="nf">alinearTablaServicios</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">            Ajusta el tamaño de la tabla de servicios.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tabProd</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()):</span>
@@ -1621,6 +1850,12 @@
                 <span class="nb">print</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Main.limpiaTabla"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.limpiaTabla">[documentos]</a>    <span class="k">def</span> <span class="nf">limpiaTabla</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tabla</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Limpia la tabla objetivo.</span>
+
+<span class="sd">        :param tabla: tabla que se desea limpiar.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tabla</span><span class="o">.</span><span class="n">clearContents</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
@@ -1628,6 +1863,11 @@
 
 
 <div class="viewcode-block" id="Main.factura"><a class="viewcode-back" href="../../src/controllers.html#controllers.controller_main.Main.factura">[documentos]</a>    <span class="k">def</span> <span class="nf">factura</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Imprime una factura en pdf.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">report</span> <span class="o">=</span> <span class="n">canvas</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="s2">&quot;informes/factura.pdf&quot;</span><span class="p">)</span>
         <span class="n">titulo</span> <span class="o">=</span> <span class="s2">&quot;FACTURA&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pieInforme</span><span class="p">()</span>
