@@ -123,7 +123,7 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.tabFac.clicked.connect(self.cargarVentas)                       # === carga las ventas del cliente === #
 
-
+        self.ui.btnImprimirFac.clicked.connect(self.factura)
 
         '''
         Llamadas a funciones de servicios (examen)
@@ -1626,7 +1626,6 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print('reigistro: '+str(error))
 
-
     def obtenerPrecio(self, servicio):
         """
 
@@ -1728,7 +1727,7 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print("cargar línea: "+str(error))
 
-    def borrarLineaVenta(self,indice):
+    def borrarLineaVenta(self):
         """
 
         Elimina una línea de venta.
@@ -1736,7 +1735,9 @@ class Main(QtWidgets.QMainWindow):
         """
         try:
             fila = self.ui.tabVentas.selectedItems()
-            id = fila[0]
+            row = [dato.text() for dato in fila]
+            print(row)
+            id = str(row[0])
             print(id)
             query = QtSql.QSqlQuery()
             query.prepare('delete from ventas where idVentas = :id')
@@ -1788,6 +1789,7 @@ class Main(QtWidgets.QMainWindow):
             self.limpiaTabla(self.ui.tabVentas)
         except Exception as error:
             print(error)
+
     def buscarFacturaPorDNI(self):
         """
 
@@ -1818,8 +1820,6 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print(error)
 
-
-
     def alinearTablaServicios(self):
             """
 
@@ -1847,7 +1847,6 @@ class Main(QtWidgets.QMainWindow):
         except Exception as error:
             print(error)
 
-
     def factura(self):
         """
 
@@ -1861,14 +1860,14 @@ class Main(QtWidgets.QMainWindow):
 
         cliente = []
         dni=str(self.ui.textBoxDniCliFac.text())
-        cliente = self.cargaCliente()
+        cliente = self.consultaDni(dni)
         print(cliente)
         self.report.setFont('Helvetica', size=9)
         self.report.drawString(55, 680, 'DATOS DEL CLIENTE')
         self.report.drawString(55, 675, 'Nº de factura: ')
         self.report.drawString(55, 660, 'DNI/CIF: ' + str(dni))
         self.report.drawString(55, 645, 'Nombre: ' + str(cliente[0]))
-        self.report.drawString(55, 630, 'Dirección: ' + str(cliente[2]))
+        self.report.drawString(55, 630, 'Dirección: ' + str(cliente[1]))
         self.report.drawString(55, 615, 'Provincia: ' + str(cliente[3]))
         self.report.drawString(55, 600, 'Municipio: ' + str(cliente[4]))
 
