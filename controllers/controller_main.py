@@ -1862,15 +1862,23 @@ class Main(QtWidgets.QMainWindow):
         dni=str(self.ui.textBoxDniCliFac.text())
         cliente = self.consultaDni(dni)
         print(cliente)
-        self.report.setFont('Helvetica', size=9)
-        self.report.drawString(55, 680, 'DATOS DEL CLIENTE')
-        self.report.drawString(55, 675, 'Nº de factura: ')
-        self.report.drawString(55, 660, 'DNI/CIF: ' + str(dni))
-        self.report.drawString(55, 645, 'Nombre: ' + str(cliente[0]))
-        self.report.drawString(55, 630, 'Dirección: ' + str(cliente[1]))
-        self.report.drawString(55, 615, 'Provincia: ' + str(cliente[3]))
-        self.report.drawString(55, 600, 'Municipio: ' + str(cliente[4]))
+        num = str(self.ui.txtNumFac.text())
 
+
+        self.report.setFont('Helvetica',size=14)
+        self.report.drawString(270, 695, titulo)
+        self.report.line(45, 680, 550, 680)
+
+        self.report.setFont('Helvetica', size=9)
+        self.report.drawString(55, 660, 'DATOS DEL CLIENTE')
+        self.report.drawString(450, 660, 'Nº de factura: '+str(num))
+        self.report.drawString(55, 640, 'DNI/CIF: ' + str(dni))
+        self.report.drawString(55, 625, 'Nombre: ' + str(cliente[0]))
+        self.report.drawString(55, 610, 'Dirección: ' + str(cliente[1]))
+        self.report.drawString(55, 595, 'Provincia: ' + str(cliente[3]))
+        self.report.drawString(55, 580, 'Municipio: ' + str(cliente[4]))
+
+        self.report.line(45, 570, 550, 570)
 
 
         self.report.save()
