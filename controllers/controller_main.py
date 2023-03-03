@@ -105,6 +105,8 @@ class Main(QtWidgets.QMainWindow):
 
         self.mostrarTabProductos()                                              # === muestra la tabla productos === #
 
+        #self.cargarTabHistorico()                                               # === muestra la tabla histórico === #
+
         self.restructuracionTablaCocheCli()                                     # === reestructura la tabla coches === #
 
         self.ui.cmbProCli.currentIndexChanged.connect(self.cargarMunicipio)     # === llena los municipios ===#
@@ -113,7 +115,7 @@ class Main(QtWidgets.QMainWindow):
 
         self.ui.tabFac.clicked.connect(self.cargarFactura)                      # === carga los datos de facturas === #
 
-        self.ui.tabCli.clicked.connect(self.cargarClienteEnFactura)           # === carga los datos de facturas === #
+        self.ui.tabCli.clicked.connect(self.cargarClienteEnFactura)             # === carga los datos de facturas === #
 
         self.alinearTablaVentas()                                               # === alinea la tabla de ventas === #
 
@@ -722,36 +724,47 @@ class Main(QtWidgets.QMainWindow):
         """
         try:
 
-            query3 = QtSql.QSqlQuery()
-            query3.prepare('select * from coches where dniCli = :dni')
-            query3.bindValue(':dni', str(self.ui.txtDniCli.text()))
+
 
             query1 = QtSql.QSqlQuery()
-            query1.prepare('delete from coches where dniCli = :dni')
-            query1.bindValue(':dni', str(self.ui.txtDniCli.text()))
+            query1.prepare('delete from coches where matricula = :matr')
+            query1.bindValue(':matr', str(self.ui.txtMatr.text()))
 
             query2 = QtSql.QSqlQuery()
-            query2.prepare('delete from clientes where dni = :dni')
-            query2.bindValue(':dni', str(self.ui.txtDniCli.text()))
+            query2.prepare('select * from coches where matricula = :matr')
+            query2.bindValue(':matr', str(self.ui.txtMatr.text()))
+
+
 
             tabla = self.dlgHistorico.ui.tabBajas
-            indice = 0;
-            if query3.exec():
-                while query3.next():
-                    tabla.setRowCount(indice + 1)
-                    tabla.setItem(0, 0, QtWidgets.QTableWidgetItem(str(query3.value(1))))
-                    tabla.setItem(0, 1, QtWidgets.QTableWidgetItem(str(query3.value(0))))
-                    tabla.setItem(0, 2, QtWidgets.QTableWidgetItem(str(query3.value(2))))
-                    tabla.setItem(0, 3, QtWidgets.QTableWidgetItem(str(query3.value(3))))
-                    tabla.setItem(0, 4, QtWidgets.QTableWidgetItem(str(query3.value(4))))
-                    tabla.setItem(0, 5, QtWidgets.QTableWidgetItem(str(datetime.today())))
-                    indice = indice + 1
-                query1.exec()
-
-            query1.exec()
-            query2.exec()
+            indice = 0
 
             if query2.exec():
+                while query2.next():
+                    tabla.setRowCount(indice + 1)
+                    tabla.setItem(0, 0, QtWidgets.QTableWidgetItem(str(query2.value(1))))
+                    tabla.setItem(0, 1, QtWidgets.QTableWidgetItem(str(query2.value(0))))
+                    tabla.setItem(0, 2, QtWidgets.QTableWidgetItem(str(query2.value(2))))
+                    tabla.setItem(0, 3, QtWidgets.QTableWidgetItem(str(query2.value(3))))
+                    tabla.setItem(0, 4, QtWidgets.QTableWidgetItem(str(query2.value(4))))
+                    tabla.setItem(0, 5, QtWidgets.QTableWidgetItem(str(datetime.today())))
+                    indice = indice + 1
+
+                    query3 = QtSql.QSqlQuery()
+                    query3.prepare('insert into historicoches (matricula, dniCli, marca, modelo, motor, fecha) '
+                                   '   values (:matricula, :dniCli, :marca, :modelo, :motor, :fecha)')
+                    query3.bindValue(":matricula", str(query2.value(1)))
+                    query3.bindValue(":dniCli", str(query2.value(0)))
+                    query3.bindValue(":marca", str(query2.value(2)))
+                    query3.bindValue(":modelo", str(query2.value(3)))
+                    query3.bindValue(":motor", str(query2.value(4)))
+                    query3.bindValue(":fecha", str(datetime.today()))
+                query3.exec()
+                query1.exec()
+
+
+
+            if query1.exec():
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('ALERTA')
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
@@ -761,7 +774,7 @@ class Main(QtWidgets.QMainWindow):
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle("ALERTA")
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                msg.setText(query2.lastError().text())
+                msg.setText(query1.lastError().text())
                 msg.exec()
 
             self.mostrarTabCocheCli()
@@ -899,6 +912,8 @@ class Main(QtWidgets.QMainWindow):
         """
         try:
             self.dlgHistorico.show()
+            self.dlgHistorico.cargarTabHistorico()
+            self.dlgHistorico.alinearTablaHistorico()
 
         except Exception as error:
             print(error)
