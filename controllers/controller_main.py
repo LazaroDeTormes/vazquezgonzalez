@@ -1195,7 +1195,7 @@ class Main(QtWidgets.QMainWindow):
         """
         try:
             self.report.line(50,50,525,50)
-            fecha = datetime.datetime.today()
+            fecha = datetime.today()
             fecha = fecha.strftime('%d.%m.%Y %H:%M:%S')
             self.report.setFont('Helvetica-Oblique', size=7)
             self.report.drawString(50,40, str(fecha))
@@ -1873,12 +1873,16 @@ class Main(QtWidgets.QMainWindow):
         self.pieInforme()
         self.topInforme()
 
+        items = ['ID', 'Servicio', 'Precio', 'Unidades', 'Total']
+
         cliente = []
         dni=str(self.ui.textBoxDniCliFac.text())
         cliente = self.consultaDni(dni)
         print(cliente)
         num = str(self.ui.txtNumFac.text())
 
+        i = 60
+        j = 530
 
         self.report.setFont('Helvetica',size=14)
         self.report.drawString(270, 695, titulo)
@@ -1894,6 +1898,44 @@ class Main(QtWidgets.QMainWindow):
         self.report.drawString(55, 580, 'Municipio: ' + str(cliente[4]))
 
         self.report.line(45, 570, 550, 570)
+
+        self.report.line(45, 560, 550, 560)
+        self.report.setFont('Helvetica-Bold', size=10)
+        self.report.drawString(60, 550, items[0])
+        self.report.drawString(120, 550, items[1])
+        self.report.drawString(270, 550, items[2])
+        self.report.drawString(360, 550, items[3])
+        self.report.drawString(460, 550, items[4])
+        self.report.line(45, 545, 550, 545)
+
+        query = QtSql.QSqlQuery()
+        query.prepare('select idVentas, servicioId, cantidad, precio from ventas where facturaId = :fac')
+        query.bindValue(":fac", str(num))
+
+
+        if query.exec():
+            print(query.value(0))
+
+            print(query.value(2))
+            print(query.value(3))
+            print("")
+            print("este es el resultado: "+str(query.value(1)))
+            print("")
+
+
+            if query.exec():
+                while query.next():
+                    query2 = QtSql.QSqlQuery()
+                    query2.prepare('select servicio from servicios where id = :id')
+                    query2.bindValue(":id", str(query.value(1)))
+                    query2.exec()
+                    while query2.next():
+                        self.report.drawString(i, j, str(query.value(0)))
+                        self.report.drawString(i + 60, j, str(query2.value(0)))
+                        self.report.drawString(i + 210, j, str(query.value(3)))
+                        self.report.drawString(i + 300, j, str(query.value(2)))
+                        self.report.drawString(i + 400, j, str(int(query.value(3))*int(query.value(2))))
+                        j = j - 20
 
 
         self.report.save()

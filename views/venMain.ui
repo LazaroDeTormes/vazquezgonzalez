@@ -3003,7 +3003,7 @@ color: rgb(255, 206, 8);</string>
   <action name="actionExportar">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../.designer/img/exportacion.png</normaloff>../../../../../.designer/img/exportacion.png</iconset>
+     <normaloff>../img/export.png</normaloff>../img/export.png</iconset>
    </property>
    <property name="text">
     <string>exportar</string>
@@ -3012,7 +3012,7 @@ color: rgb(255, 206, 8);</string>
   <action name="actionImportar">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../.designer/img/6842765.png</normaloff>../../../../../.designer/img/6842765.png</iconset>
+     <normaloff>../img/importar.png</normaloff>../img/importar.png</iconset>
    </property>
    <property name="text">
     <string>Importar</string>
