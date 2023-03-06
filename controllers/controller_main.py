@@ -3,6 +3,7 @@ import calendar
 import xlrd as xlrd
 import xlwt
 from PyQt6 import QtWidgets, QtSql, QtCore
+from PyQt6.QtGui import QIcon
 from reportlab.pdfgen import canvas
 
 from views import Ui_venMain
@@ -1732,6 +1733,7 @@ class Main(QtWidgets.QMainWindow):
                     tabla_ventas.setItem(indice, 4, QtWidgets.QTableWidgetItem(str(suma) + ' €'))
                     tabla_ventas.item(indice, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                     tabla_ventas.setCellWidget(indice, 5, self.btnBorrarLinea)
+                    self.btnBorrarLinea.setIcon(QIcon("img\decoraciones\papelera.png"))
 
                     self.ui.txtPrecioTotal.setText(str('{:.2f}'.format(round(total)))+' €')
                     indice = indice + 1
@@ -1912,30 +1914,19 @@ class Main(QtWidgets.QMainWindow):
         query.prepare('select idVentas, servicioId, cantidad, precio from ventas where facturaId = :fac')
         query.bindValue(":fac", str(num))
 
-
         if query.exec():
-            print(query.value(0))
-
-            print(query.value(2))
-            print(query.value(3))
-            print("")
-            print("este es el resultado: "+str(query.value(1)))
-            print("")
-
-
-            if query.exec():
-                while query.next():
-                    query2 = QtSql.QSqlQuery()
-                    query2.prepare('select servicio from servicios where id = :id')
-                    query2.bindValue(":id", str(query.value(1)))
-                    query2.exec()
-                    while query2.next():
-                        self.report.drawString(i, j, str(query.value(0)))
-                        self.report.drawString(i + 60, j, str(query2.value(0)))
-                        self.report.drawString(i + 210, j, str(query.value(3)))
-                        self.report.drawString(i + 300, j, str(query.value(2)))
-                        self.report.drawString(i + 400, j, str(int(query.value(3))*int(query.value(2))))
-                        j = j - 20
+            while query.next():
+                query2 = QtSql.QSqlQuery()
+                query2.prepare('select servicio from servicios where id = :id')
+                query2.bindValue(":id", str(query.value(1)))
+                query2.exec()
+                while query2.next():
+                    self.report.drawString(i, j, str(query.value(0)))
+                    self.report.drawString(i + 60, j, str(query2.value(0)))
+                    self.report.drawString(i + 210, j, str(query.value(3)))
+                    self.report.drawString(i + 300, j, str(query.value(2)))
+                    self.report.drawString(i + 400, j, str(int(query.value(3))*int(query.value(2))))
+                    j = j - 20
 
 
         self.report.save()
