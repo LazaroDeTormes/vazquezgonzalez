@@ -9,6 +9,11 @@ class DialogoHistorico(QtWidgets.QDialog):
         self.ui.setupUi(self)
 
     def cargarTabHistorico(self):
+        """
+
+        Carga los coches dados de baja
+
+        """
         try:
             tabla = self.ui.tabBajas
 
